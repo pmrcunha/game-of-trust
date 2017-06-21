@@ -62,7 +62,7 @@ function init(boardWidth, boardHeight) {
       boardDivs.push(rowDivs);
     }
   )
-  updateBoardDivs();
+  updateBoardDivs(board);
 }
 
 function handleCellClick(event) {
@@ -101,7 +101,7 @@ function handleCellClick(event) {
   }
 }
 
-function updateBoardDivs() {
+function updateBoardDivs(board) {
   board.forEach((row, i) => {
     row.forEach((cell, j) => {
       switch (cell) {
@@ -126,4 +126,114 @@ function updateBoardDivs() {
       }
     })
   })
+}
+
+function startGame(turns) {
+  let counter = 0;
+  let nextBoard;
+
+  let intervalID = window.setInterval(() => {
+    if (counter > turns) {
+      window.clearInterval(intervalID);
+      getResults();
+    }
+    else {
+      console.log('turn:', counter);
+      nextBoard = nextGeneration(board);
+      // Update the board
+      updateBoardDivs(nextBoard);
+      counter++;
+    }
+  }, 500);
+}
+
+function nextGeneration(board) {
+  let nextBoard = board.map((row, i) => {
+    return row.map((cellState, j) => {
+      return getNewState(cellState, i, j);
+    })
+  });
+
+  //
+  return nextBoard;
+}
+
+function getNewState(currentState, cellRow, cellCol) {
+  let newCellState;
+  let neighborCounter = {
+    inactive:   0,
+    onestar:    0,
+    twostars:   0,
+    threestars: 0,
+    fourstars:  0,
+    fivestars:  0
+  }
+  console.log(neighborCounter);
+  for (let i = -1; i <= 1; i++) {
+    for (let j = -1; j <= 1; j++) {
+      let neighborValue;
+      if (typeof (board[cellRow + i]) === 'undefined' ||
+          typeof (board[cellRow + i][cellCol + j]) === 'undefined') {
+        // Cells outside the board are inactive (no wrapping)
+        neighborValue = REVIEWSTATE.INACTIVE;
+      }
+      else if (i === 0 && j === 0) {
+        neighborValue = -1; // skip the cell itself
+      }
+      else {
+        neighborValue = board[cellRow + i][cellCol + j];
+      }
+      switch (neighborValue) {
+        case -1:
+        break;
+        case REVIEWSTATE.INACTIVE:
+        neighborCounter.inactive++;
+        break;
+        case REVIEWSTATE.ONESTAR:
+        neighborCounter.onestar++;
+        break;
+        case REVIEWSTATE.TWOSTARS:
+        neighborCounter.twostars++;
+        break;
+        case REVIEWSTATE.THREESTARS:
+        neighborCounter.threestars++;
+        break;
+        case REVIEWSTATE.FOURSTARS:
+        neighborCounter.fourstars++;
+        break;
+        case REVIEWSTATE.FIVESTARS:
+        neighborCounter.fivestars++;
+        break;
+      }
+    }
+  }
+  console.log(neighborCounter);
+  // Less than 2 neighbors = becomes inactive
+  if (neighborCounter.inactive > 6) {
+    newCellState = REVIEWSTATE.INACTIVE;
+  }
+
+  // Has exactly 2 or 3 neighbors = stays the same
+  else if (5 <= neighborCounter.inactive <= 6) {
+    newCellState = currentState;
+  }
+  // Has more than 3 neighbors = decays one state
+  else if (neighborCounter.inactive < 5) {
+    newCellState = currentState--;
+  }
+  // Has 3 neighbors and is inactive = highest value of the neighbors or one above if they are the same
+  else if (currentState === REVIEWSTATE.INACTIVE && neighborCounter === 5) {
+    Object.keys(neighborCounter).forEach((c) => {
+      console.log('keys', c);
+    })
+    newCellState = 5;
+  }
+  else {
+    throw('somethings wrong');
+  }
+  return newCellState;
+}
+
+function getResults() {
+  console.log('results!');
 }
