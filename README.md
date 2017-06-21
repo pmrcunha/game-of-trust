@@ -13,7 +13,7 @@ The game ends after 1000 turns.
 
 At each turn in the game, the following transitions occur:
 
-- Any review cell with fewer than two neighbor reviews becomes inactive, because no one cares about this company anymore.
-- Any review cell with two or three neighbor reviews is a solid review, and stays the same.
-- Any review cell with more than three neighbors decays one value, because there is always someone complaining when you have a lot of reviews.
-- Any inactive cell with exactly three neighbor reviews becomes a review cell, with the highest rating of the three or, if the three are the same, one value above, as if this review was affected by peer pressure.
+-   Any review cell with fewer than two neighbor reviews becomes inactive, because no one cares about this company anymore.
+-   Any review cell with two or three neighbor reviews is a solid review, and stays the same.
+-   Any review cell with more than three neighbors decays one value, because there is always someone complaining when you have a lot of reviews.
+-   Any inactive cell with exactly three neighbor reviews becomes a review cell, with the highest rating of the three or, if the three are the same, one value above, as if this review was affected by peer pressure.
