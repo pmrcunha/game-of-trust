@@ -1,3 +1,5 @@
+
+// Globals
 const REVIEWSTATE = {
   INACTIVE:   0,
   ONESTAR:    1,
@@ -16,46 +18,52 @@ const REVIEWCOLOR = {
   FIVESTARS:  'green'
 }
 
-// Set board dimensions
-const boardWidth =  50;
-const boardHeight = 50;
+let board = [], boardDivs = [];
 
-// Create the board array
-let board = new Array(boardHeight);
-let boardRow = new Array(boardWidth);
-boardRow.fill(0);
-board.fill(boardRow);
+// Initialize and set board dimensions
+init(10, 10);
 
-console.log(board);
-
-// Create the container element
-let boardElm = document.createElement('div');
-document.body.append(boardElm);
-
-// Create the review cells from the array
-// and add them to an elements array, so that they are easier to access
-boardDivs = [];
-board.forEach(
-  (row, i) => {
-    let rowDivs = [];
-    let rowElm = document.createElement('div');
-    rowElm.setAttribute('class', 'row');
-    boardElm.append(rowElm);
-    // create cells
-    row.forEach((cell, j) => {
-      let cellElm = document.createElement('div');
-      cellElm.setAttribute('class', 'cell');
-      cellElm.setAttribute('data-row', i);
-      cellElm.setAttribute('data-cell', j);
-      rowElm.append(cellElm);
-      rowDivs.push(cellElm);
-      cellElm.addEventListener('mousedown', handleCellClick);
-    })
-    boardDivs.push(rowDivs);
+function init(boardWidth, boardHeight) {
+  // Create the board array
+  for (var i = 0; i < boardHeight; i++) {
+    let row = [];
+    for (var j = 0; j < boardWidth; j++) {
+      row.push(0);
+    }
+    board.push(row);
   }
-)
+  // board = new Array(boardHeight);
+  // let boardRow = new Array(boardWidth);
+  // boardRow.fill(0);
+  // board.fill(boardRow); //Fills all rows with the same object, not a copy!
 
-updateBoardDivs();
+  // Create the container element
+  let boardElm = document.createElement('div');
+  document.body.append(boardElm);
+
+  // Create the review cells from the array
+  // and add them to an elements array, so that they are easier to access
+  board.forEach(
+    (row, i) => {
+      let rowDivs = [];
+      let rowElm = document.createElement('div');
+      rowElm.setAttribute('class', 'row');
+      boardElm.append(rowElm);
+      // create cells
+      row.forEach((cell, j) => {
+        let cellElm = document.createElement('div');
+        cellElm.setAttribute('class', 'cell');
+        cellElm.setAttribute('data-row', i);
+        cellElm.setAttribute('data-cell', j);
+        rowElm.append(cellElm);
+        rowDivs.push(cellElm);
+        cellElm.addEventListener('mousedown', handleCellClick);
+      })
+      boardDivs.push(rowDivs);
+    }
+  )
+  updateBoardDivs();
+}
 
 function handleCellClick(event) {
   let cell = event.target;
@@ -69,7 +77,6 @@ function handleCellClick(event) {
   switch (cellColor) {
     case REVIEWCOLOR.INACTIVE:
       cell.style.backgroundColor = REVIEWCOLOR.ONESTAR;
-      console.log(board[cellPos.x]);
       board[cellPos.x][cellPos.y] = REVIEWSTATE.ONESTAR;
       break;
     case REVIEWCOLOR.ONESTAR:
@@ -92,7 +99,6 @@ function handleCellClick(event) {
       cell.style.backgroundColor = REVIEWCOLOR.INACTIVE;
       board[cellPos.x][cellPos.y] = REVIEWSTATE.INACTIVE;
   }
-  console.log(board);
 }
 
 function updateBoardDivs() {
