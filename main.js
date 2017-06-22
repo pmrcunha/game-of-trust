@@ -9,19 +9,56 @@ const REVIEWSTATE = {
   FIVESTARS:  5
 }
 
-const REVIEWCOLOR = {
-  INACTIVE:   'gray',
-  ONESTAR:    'red',
-  TWOSTARS:   'orange',
-  THREESTARS: 'yellow',
-  FOURSTARS:  'lightgreen',
-  FIVESTARS:  'green'
+// const REVIEWCOLOR = {
+//   INACTIVE:   'gray',
+//   ONESTAR:    'red',
+//   TWOSTARS:   'orange',
+//   THREESTARS: 'yellow',
+//   FOURSTARS:  'lightgreen',
+//   FIVESTARS:  'green'
+// }
+
+const  svgns = "http://www.w3.org/2000/svg";
+const  xlinkns = "http://www.w3.org/1999/xlink";
+
+const  iconInactive = document.createElementNS(svgns, "use");
+iconInactive.setAttributeNS(xlinkns, "href", "#review-inactive");
+
+const  iconOneStar = document.createElementNS(svgns, "use");
+iconOneStar.setAttributeNS(xlinkns, "href", "#review-onestar");
+
+const  iconTwoStars = document.createElementNS(svgns, "use");
+iconTwoStars.setAttributeNS(xlinkns, "href", "#review-twostars");
+
+const  iconThreeStars = document.createElementNS(svgns, "use");
+iconThreeStars.setAttributeNS(xlinkns, "href", "#review-threestars");
+
+const  iconFourStars = document.createElementNS(svgns, "use");
+iconFourStars.setAttributeNS(xlinkns, "href", "#review-fourstars");
+
+const  iconFiveStars = document.createElementNS(svgns, "use");
+iconFiveStars.setAttributeNS(xlinkns, "href", "#review-fivestars");
+
+const symbolsArray = [iconInactive, iconOneStar, iconTwoStars, iconThreeStars, iconFourStars, iconFiveStars];
+
+const REVIEWSYMBOL = {
+  INACTIVE:   '<svg width="18px" height="18px" viewBox="0 0 48 48" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"><defs><linearGradient x1="50%" y1="0%" x2="50%" y2="100%" id="linearGradient-1"><stop stop-color="#D8D9D9" offset="0%"></stop><stop stop-color="#C0C0C0" offset="100%"></stop></linearGradient></defs><g id="Page-1-Copy" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd"><g id="Desktop" transform="translate(-678.000000, -533.000000)"><g id="Stars/components/Single-Star" transform="translate(678.000000, 533.000000)"><g id="Single-Star"><g id="Stars/bg/gray" fill="url(#linearGradient-1)"><rect x="0" y="0" width="48" height="48" rx="5"></rect></g><g id="Stars/icons/star" transform="translate(4.000000, 4.000000)"><g><circle id="bounds" cx="20" cy="20" r="20"></circle><polygon id="star" fill="#FFFFFF" points="19.8402662 1 15.3534437 14.6903652 2 14.6903652 12.8571026 22.760444 9.24860522 36 19.8402662 27.6601257 30.7045119 36 27.0514719 22.760444 37.8402662 14.6903652 24.5084135 14.6903652"></polygon></g></g></g></g></g></g></svg>',
+
+  ONESTAR:    '<svg width="48px" height="48px" viewBox="0 0 48 48" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"><defs><linearGradient x1="50%" y1="0%" x2="50%" y2="100%" id="linearGradient-1"><stop stop-color="#E51E25" offset="0%"></stop><stop stop-color="#B51F24" offset="100%"></stop></linearGradient></defs><g id="Page-1-Copy" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd"><g id="Desktop" transform="translate(-678.000000, -477.000000)"><g id="Stars/components/Single-Star" transform="translate(678.000000, 477.000000)"><g id="Single-Star"><g id="Stars/bg/1-red" fill="url(#linearGradient-1)"><rect x="0" y="0" width="48" height="48" rx="5"></rect></g><g id="Stars/icons/star" transform="translate(4.000000, 4.000000)"><g><circle id="bounds" cx="20" cy="20" r="20"></circle><polygon id="star" fill="#FFFFFF" points="19.8402662 1 15.3534437 14.6903652 2 14.6903652 12.8571026 22.760444 9.24860522 36 19.8402662 27.6601257 30.7045119 36 27.0514719 22.760444 37.8402662 14.6903652 24.5084135 14.6903652"></polygon></g></g></g></g></g></g></svg>',
+
+  TWOSTARS:   '<svg width="48px" height="48px" viewBox="0 0 48 48" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"><defs><linearGradient x1="50%" y1="0%" x2="50%" y2="100%" id="linearGradient-1"><stop stop-color="#F47324" offset="0%"></stop><stop stop-color="#E75E25" offset="100%"></stop></linearGradient></defs><g id="Page-1-Copy" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd"><g id="Desktop" transform="translate(-678.000000, -421.000000)"><g id="Stars/components/Single-Star" transform="translate(678.000000, 421.000000)"><g id="Single-Star"><g id="Stars/bg/2-orange" fill="url(#linearGradient-1)"><rect x="0" y="0" width="48" height="48" rx="5"></rect></g><g id="Stars/icons/star" transform="translate(4.000000, 4.000000)"><g><circle id="bounds" cx="20" cy="20" r="20"></circle><polygon id="star" fill="#FFFFFF" points="19.8402662 1 15.3534437 14.6903652 2 14.6903652 12.8571026 22.760444 9.24860522 36 19.8402662 27.6601257 30.7045119 36 27.0514719 22.760444 37.8402662 14.6903652 24.5084135 14.6903652"></polygon></g></g></g></g></g></g></svg>',
+
+  THREESTARS: '<svg width="48px" height="48px" viewBox="0 0 48 48" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"><defs><linearGradient x1="50%" y1="0%" x2="50%" y2="100%" id="linearGradient-1"><stop stop-color="#FCD116" offset="0%"></stop><stop stop-color="#E4B821" offset="100%"></stop></linearGradient></defs><g id="Page-1-Copy" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd"><g id="Desktop" transform="translate(-678.000000, -365.000000)"><g id="Stars/components/Single-Star" transform="translate(678.000000, 365.000000)"><g id="Single-Star"><g id="Stars/bg/3-yellow" fill="url(#linearGradient-1)"><rect x="0" y="0" width="48" height="48" rx="5"></rect></g><g id="Stars/icons/star" transform="translate(4.000000, 4.000000)"><g><circle id="bounds" cx="20" cy="20" r="20"></circle><polygon id="star" fill="#FFFFFF" points="19.8402662 1 15.3534437 14.6903652 2 14.6903652 12.8571026 22.760444 9.24860522 36 19.8402662 27.6601257 30.7045119 36 27.0514719 22.760444 37.8402662 14.6903652 24.5084135 14.6903652"></polygon></g></g></g></g></g></g></svg>',
+
+  FOURSTARS:  '<svg width="48px" height="48px" viewBox="0 0 48 48" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"><defs><linearGradient x1="50%" y1="0%" x2="50%" y2="100%" id="linearGradient-1"><stop stop-color="#73B343" offset="0%"></stop><stop stop-color="#57843B" offset="100%"></stop></linearGradient></defs><g id="Page-1-Copy" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd"><g id="Desktop" transform="translate(-678.000000, -309.000000)"><g id="Stars/components/Single-Star" transform="translate(678.000000, 309.000000)"><g id="Single-Star"><g id="Stars/bg/4-green" fill="url(#linearGradient-1)"><rect x="0" y="0" width="48" height="48" rx="5"></rect></g><g id="Stars/icons/star" transform="translate(4.000000, 4.000000)"><g><circle id="bounds" cx="20" cy="20" r="20"></circle><polygon id="star" fill="#FFFFFF" points="19.8402662 1 15.3534437 14.6903652 2 14.6903652 12.8571026 22.760444 9.24860522 36 19.8402662 27.6601257 30.7045119 36 27.0514719 22.760444 37.8402662 14.6903652 24.5084135 14.6903652"></polygon></g></g></g></g></g></g></svg>',
+
+  FIVESTARS:  '<svg width="48px" height="48px" viewBox="0 0 48 48" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"><defs><linearGradient x1="50%" y1="0%" x2="50%" y2="100%" id="linearGradient-1"><stop stop-color="#22B24C" offset="0%"></stop><stop stop-color="#0C8140" offset="100%"></stop></linearGradient></defs><g id="Page-1-Copy" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd"><g id="Desktop" transform="translate(-678.000000, -253.000000)"><g id="Stars/components/Single-Star" transform="translate(678.000000, 253.000000)"><g id="Single-Star"><g id="Stars/bg/5-green" fill="url(#linearGradient-1)"><rect x="0" y="0" width="48" height="48" rx="5"></rect></g><g id="Stars/icons/star" transform="translate(4.000000, 4.000000)"><g><circle id="bounds" cx="20" cy="20" r="20"></circle><polygon id="star" fill="#FFFFFF" points="19.8402662 1 15.3534437 14.6903652 2 14.6903652 12.8571026 22.760444 9.24860522 36 19.8402662 27.6601257 30.7045119 36 27.0514719 22.760444 37.8402662 14.6903652 24.5084135 14.6903652"></polygon></g></g></g></g></g></g></svg>'
 }
 
 let board = [], boardDivs = [];
 
 // Initialize and set board dimensions
-init(10, 10);
+init(50, 50);
 
 function init(boardWidth, boardHeight) {
   // Create the board array
@@ -55,6 +92,10 @@ function init(boardWidth, boardHeight) {
         cellElm.setAttribute('class', 'cell');
         cellElm.setAttribute('data-row', i);
         cellElm.setAttribute('data-cell', j);
+        // Append empty SVG
+        let emptySVG = document.createElementNS(svgns, "svg");
+        cellElm.appendChild(emptySVG);
+        //
         rowElm.append(cellElm);
         rowDivs.push(cellElm);
         cellElm.addEventListener('mousedown', handleCellClick);
@@ -66,62 +107,64 @@ function init(boardWidth, boardHeight) {
 }
 
 function handleCellClick(event) {
-  let cell = event.target;
+  let cell = event.currentTarget;
   let cellPos = {
     x: cell.getAttribute('data-row'),
     y: cell.getAttribute('data-cell')
   }
-  let cellColor = cell.style.backgroundColor;
+
   console.log(cellPos.x, cellPos.y );
 
-  switch (cellColor) {
-    case REVIEWCOLOR.INACTIVE:
-      cell.style.backgroundColor = REVIEWCOLOR.ONESTAR;
-      board[cellPos.x][cellPos.y] = REVIEWSTATE.ONESTAR;
-      break;
-    case REVIEWCOLOR.ONESTAR:
-      cell.style.backgroundColor = REVIEWCOLOR.TWOSTARS;
-      board[cellPos.x][cellPos.y] = REVIEWSTATE.TWOSTARS;
-      break;
-    case REVIEWCOLOR.TWOSTARS:
-      cell.style.backgroundColor = REVIEWCOLOR.THREESTARS;
-      board[cellPos.x][cellPos.y] = REVIEWSTATE.THREESTARS;
-      break;
-    case REVIEWCOLOR.THREESTARS:
-      cell.style.backgroundColor = REVIEWCOLOR.FOURSTARS;
-      board[cellPos.x][cellPos.y] = REVIEWSTATE.FOURSTARS;
-      break;
-    case REVIEWCOLOR.FOURSTARS:
-      cell.style.backgroundColor = REVIEWCOLOR.FIVESTARS;
-      board[cellPos.x][cellPos.y] = REVIEWSTATE.FIVESTARS;
-      break;
-    default:
-      cell.style.backgroundColor = REVIEWCOLOR.INACTIVE;
-      board[cellPos.x][cellPos.y] = REVIEWSTATE.INACTIVE;
+  if (board[cellPos.x][cellPos.y] === REVIEWSTATE.FIVESTARS) {
+    board[cellPos.x][cellPos.y] = REVIEWSTATE.INACTIVE;
+  } else {
+    board[cellPos.x][cellPos.y] += 1;
   }
+
+  let iconSVG = cell.firstChild;
+  iconSVG.removeChild(iconSVG.firstChild);
+  iconSVG.appendChild(symbolsArray[board[cellPos.x][cellPos.y]]);
 }
 
 function updateBoardDivs(board) {
   board.forEach((row, i) => {
     row.forEach((cell, j) => {
+      console.log(boardDivs[i][j]);
+      let iconSVG = boardDivs[i][j].firstChild;
+      if (iconSVG.hasChildNodes()) {
+        iconSVG.removeChild(iconSVG.firstChild);
+      }
+  
       switch (cell) {
         case REVIEWSTATE.INACTIVE:
-          boardDivs[i][j].style.backgroundColor = 'gray';
+          // boardDivs[i][j].style.backgroundColor = REVIEWCOLOR.INACTIVE;
+          // boardDivs[i][j].innerHTML = REVIEWSYMBOL.INACTIVE;
+          iconSVG.appendChild(symbolsArray[REVIEWSTATE.INACTIVE]);
           break;
         case REVIEWSTATE.ONESTAR:
-          boardDivs[i][j].style.backgroundColor = 'red';
+          // boardDivs[i][j].style.backgroundColor = REVIEWCOLOR.ONESTAR;
+          // boardDivs[i][j].innerHTML = REVIEWSYMBOL.ONESTAR;
+          iconSVG.appendChild(symbolsArray[REVIEWSTATE.ONESTAR]);
           break;
         case REVIEWSTATE.TWOSTARS:
-          boardDivs[i][j].style.backgroundColor = 'orange';
+          // boardDivs[i][j].style.backgroundColor = REVIEWCOLOR.TWOSTARS;
+          // boardDivs[i][j].innerHTML = REVIEWSYMBOL.TWOSTARS;
+          iconSVG.appendChild(symbolsArray[REVIEWSTATE.TWOSTARS]);
           break;
         case REVIEWSTATE.THREESTARS:
-          boardDivs[i][j].style.backgroundColor = 'yellow';
+          // boardDivs[i][j].style.backgroundColor = REVIEWCOLOR.THREESTARS;
+          // boardDivs[i][j].innerHTML = REVIEWSYMBOL.THREESTARS;
+          iconSVG.appendChild(symbolsArray[REVIEWSTATE.THREESTARS]);
           break;
         case REVIEWSTATE.FOURSTARS:
-          boardDivs[i][j].style.backgroundColor = 'lightgreen';
+          // boardDivs[i][j].style.backgroundColor = REVIEWCOLOR.FOURSTARS;
+          // boardDivs[i][j].innerHTML = REVIEWSYMBOL.FOURSTARS;
+          iconSVG.appendChild(symbolsArray[REVIEWSTATE.FOURSTARS]);
           break;
         case REVIEWSTATE.FIVESTARS:
-          boardDivs[i][j].style.backgroundColor = 'green';
+          // boardDivs[i][j].style.backgroundColor = REVIEWCOLOR.FIVESTARS;
+          // boardDivs[i][j].innerHTML = REVIEWSYMBOL.FIVESTARS;
+          iconSVG.appendChild(symbolsArray[REVIEWSTATE.FIVESTARS]);
           break;
       }
     })
@@ -139,9 +182,9 @@ function startGame(turns) {
     }
     else {
       console.log('turn:', counter);
-      nextBoard = nextGeneration(board);
+      board = nextGeneration(board);
       // Update the board
-      updateBoardDivs(nextBoard);
+      updateBoardDivs(board);
       counter++;
     }
   }, 500);
@@ -168,7 +211,7 @@ function getNewState(currentState, cellRow, cellCol) {
     fourstars:  0,
     fivestars:  0
   }
-  console.log(neighborCounter);
+  // Count the neighbors in each state
   for (let i = -1; i <= 1; i++) {
     for (let j = -1; j <= 1; j++) {
       let neighborValue;
@@ -207,29 +250,38 @@ function getNewState(currentState, cellRow, cellCol) {
       }
     }
   }
-  console.log(neighborCounter);
-  // Less than 2 neighbors = becomes inactive
-  if (neighborCounter.inactive > 6) {
-    newCellState = REVIEWSTATE.INACTIVE;
-  }
+  // Calculate the new state according to the rules of the game
 
-  // Has exactly 2 or 3 neighbors = stays the same
-  else if (5 <= neighborCounter.inactive <= 6) {
-    newCellState = currentState;
-  }
-  // Has more than 3 neighbors = decays one state
-  else if (neighborCounter.inactive < 5) {
-    newCellState = currentState--;
-  }
-  // Has 3 neighbors and is inactive = highest value of the neighbors or one above if they are the same
-  else if (currentState === REVIEWSTATE.INACTIVE && neighborCounter === 5) {
-    Object.keys(neighborCounter).forEach((c) => {
-      console.log('keys', c);
-    })
-    newCellState = 5;
-  }
-  else {
-    throw('somethings wrong');
+  if (currentState === REVIEWSTATE.INACTIVE) {
+
+    if (neighborCounter.inactive === 5) {
+      console.log('inactive cell with 3 neighbors');
+      Object.keys(neighborCounter).forEach((c) => {
+        console.log('keys', c);
+      })
+      newCellState = REVIEWSTATE.FIVESTARS;
+    } else {
+      console.log('inactive cell with more or less than 3 neighbors');
+      newCellState = REVIEWSTATE.INACTIVE;
+    }
+
+  } else {
+
+    if (neighborCounter.inactive > 6) {
+      console.log('review cell with less than 2 neighbors');
+      newCellState = REVIEWSTATE.INACTIVE;
+    }
+    else if (neighborCounter.inactive === 5 || neighborCounter.inactive === 6) {
+      console.log('review cell with 2 or 3 neighbors');
+      newCellState = currentState;
+    }
+    else if (neighborCounter.inactive < 5) {
+      console.log('review cell with more than 3 neighbors');
+      newCellState = --currentState;
+    }
+    else {
+      console.warn('this should not happen');
+    }
   }
   return newCellState;
 }
