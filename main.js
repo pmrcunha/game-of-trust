@@ -9,51 +9,17 @@ const REVIEWSTATE = {
   FIVESTARS:  5
 }
 
-// const REVIEWCOLOR = {
-//   INACTIVE:   'gray',
-//   ONESTAR:    'red',
-//   TWOSTARS:   'orange',
-//   THREESTARS: 'yellow',
-//   FOURSTARS:  'lightgreen',
-//   FIVESTARS:  'green'
-// }
-
 const  svgns = "http://www.w3.org/2000/svg";
 const  xlinkns = "http://www.w3.org/1999/xlink";
 
-const  iconInactive = document.createElementNS(svgns, "use");
-iconInactive.setAttributeNS(xlinkns, "href", "#review-inactive");
-
-const  iconOneStar = document.createElementNS(svgns, "use");
-iconOneStar.setAttributeNS(xlinkns, "href", "#review-onestar");
-
-const  iconTwoStars = document.createElementNS(svgns, "use");
-iconTwoStars.setAttributeNS(xlinkns, "href", "#review-twostars");
-
-const  iconThreeStars = document.createElementNS(svgns, "use");
-iconThreeStars.setAttributeNS(xlinkns, "href", "#review-threestars");
-
-const  iconFourStars = document.createElementNS(svgns, "use");
-iconFourStars.setAttributeNS(xlinkns, "href", "#review-fourstars");
-
-const  iconFiveStars = document.createElementNS(svgns, "use");
-iconFiveStars.setAttributeNS(xlinkns, "href", "#review-fivestars");
-
-const symbolsArray = [iconInactive, iconOneStar, iconTwoStars, iconThreeStars, iconFourStars, iconFiveStars];
-
-const REVIEWSYMBOL = {
-  INACTIVE:   '<svg width="18px" height="18px" viewBox="0 0 48 48" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"><defs><linearGradient x1="50%" y1="0%" x2="50%" y2="100%" id="linearGradient-1"><stop stop-color="#D8D9D9" offset="0%"></stop><stop stop-color="#C0C0C0" offset="100%"></stop></linearGradient></defs><g id="Page-1-Copy" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd"><g id="Desktop" transform="translate(-678.000000, -533.000000)"><g id="Stars/components/Single-Star" transform="translate(678.000000, 533.000000)"><g id="Single-Star"><g id="Stars/bg/gray" fill="url(#linearGradient-1)"><rect x="0" y="0" width="48" height="48" rx="5"></rect></g><g id="Stars/icons/star" transform="translate(4.000000, 4.000000)"><g><circle id="bounds" cx="20" cy="20" r="20"></circle><polygon id="star" fill="#FFFFFF" points="19.8402662 1 15.3534437 14.6903652 2 14.6903652 12.8571026 22.760444 9.24860522 36 19.8402662 27.6601257 30.7045119 36 27.0514719 22.760444 37.8402662 14.6903652 24.5084135 14.6903652"></polygon></g></g></g></g></g></g></svg>',
-
-  ONESTAR:    '<svg width="48px" height="48px" viewBox="0 0 48 48" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"><defs><linearGradient x1="50%" y1="0%" x2="50%" y2="100%" id="linearGradient-1"><stop stop-color="#E51E25" offset="0%"></stop><stop stop-color="#B51F24" offset="100%"></stop></linearGradient></defs><g id="Page-1-Copy" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd"><g id="Desktop" transform="translate(-678.000000, -477.000000)"><g id="Stars/components/Single-Star" transform="translate(678.000000, 477.000000)"><g id="Single-Star"><g id="Stars/bg/1-red" fill="url(#linearGradient-1)"><rect x="0" y="0" width="48" height="48" rx="5"></rect></g><g id="Stars/icons/star" transform="translate(4.000000, 4.000000)"><g><circle id="bounds" cx="20" cy="20" r="20"></circle><polygon id="star" fill="#FFFFFF" points="19.8402662 1 15.3534437 14.6903652 2 14.6903652 12.8571026 22.760444 9.24860522 36 19.8402662 27.6601257 30.7045119 36 27.0514719 22.760444 37.8402662 14.6903652 24.5084135 14.6903652"></polygon></g></g></g></g></g></g></svg>',
-
-  TWOSTARS:   '<svg width="48px" height="48px" viewBox="0 0 48 48" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"><defs><linearGradient x1="50%" y1="0%" x2="50%" y2="100%" id="linearGradient-1"><stop stop-color="#F47324" offset="0%"></stop><stop stop-color="#E75E25" offset="100%"></stop></linearGradient></defs><g id="Page-1-Copy" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd"><g id="Desktop" transform="translate(-678.000000, -421.000000)"><g id="Stars/components/Single-Star" transform="translate(678.000000, 421.000000)"><g id="Single-Star"><g id="Stars/bg/2-orange" fill="url(#linearGradient-1)"><rect x="0" y="0" width="48" height="48" rx="5"></rect></g><g id="Stars/icons/star" transform="translate(4.000000, 4.000000)"><g><circle id="bounds" cx="20" cy="20" r="20"></circle><polygon id="star" fill="#FFFFFF" points="19.8402662 1 15.3534437 14.6903652 2 14.6903652 12.8571026 22.760444 9.24860522 36 19.8402662 27.6601257 30.7045119 36 27.0514719 22.760444 37.8402662 14.6903652 24.5084135 14.6903652"></polygon></g></g></g></g></g></g></svg>',
-
-  THREESTARS: '<svg width="48px" height="48px" viewBox="0 0 48 48" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"><defs><linearGradient x1="50%" y1="0%" x2="50%" y2="100%" id="linearGradient-1"><stop stop-color="#FCD116" offset="0%"></stop><stop stop-color="#E4B821" offset="100%"></stop></linearGradient></defs><g id="Page-1-Copy" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd"><g id="Desktop" transform="translate(-678.000000, -365.000000)"><g id="Stars/components/Single-Star" transform="translate(678.000000, 365.000000)"><g id="Single-Star"><g id="Stars/bg/3-yellow" fill="url(#linearGradient-1)"><rect x="0" y="0" width="48" height="48" rx="5"></rect></g><g id="Stars/icons/star" transform="translate(4.000000, 4.000000)"><g><circle id="bounds" cx="20" cy="20" r="20"></circle><polygon id="star" fill="#FFFFFF" points="19.8402662 1 15.3534437 14.6903652 2 14.6903652 12.8571026 22.760444 9.24860522 36 19.8402662 27.6601257 30.7045119 36 27.0514719 22.760444 37.8402662 14.6903652 24.5084135 14.6903652"></polygon></g></g></g></g></g></g></svg>',
-
-  FOURSTARS:  '<svg width="48px" height="48px" viewBox="0 0 48 48" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"><defs><linearGradient x1="50%" y1="0%" x2="50%" y2="100%" id="linearGradient-1"><stop stop-color="#73B343" offset="0%"></stop><stop stop-color="#57843B" offset="100%"></stop></linearGradient></defs><g id="Page-1-Copy" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd"><g id="Desktop" transform="translate(-678.000000, -309.000000)"><g id="Stars/components/Single-Star" transform="translate(678.000000, 309.000000)"><g id="Single-Star"><g id="Stars/bg/4-green" fill="url(#linearGradient-1)"><rect x="0" y="0" width="48" height="48" rx="5"></rect></g><g id="Stars/icons/star" transform="translate(4.000000, 4.000000)"><g><circle id="bounds" cx="20" cy="20" r="20"></circle><polygon id="star" fill="#FFFFFF" points="19.8402662 1 15.3534437 14.6903652 2 14.6903652 12.8571026 22.760444 9.24860522 36 19.8402662 27.6601257 30.7045119 36 27.0514719 22.760444 37.8402662 14.6903652 24.5084135 14.6903652"></polygon></g></g></g></g></g></g></svg>',
-
-  FIVESTARS:  '<svg width="48px" height="48px" viewBox="0 0 48 48" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"><defs><linearGradient x1="50%" y1="0%" x2="50%" y2="100%" id="linearGradient-1"><stop stop-color="#22B24C" offset="0%"></stop><stop stop-color="#0C8140" offset="100%"></stop></linearGradient></defs><g id="Page-1-Copy" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd"><g id="Desktop" transform="translate(-678.000000, -253.000000)"><g id="Stars/components/Single-Star" transform="translate(678.000000, 253.000000)"><g id="Single-Star"><g id="Stars/bg/5-green" fill="url(#linearGradient-1)"><rect x="0" y="0" width="48" height="48" rx="5"></rect></g><g id="Stars/icons/star" transform="translate(4.000000, 4.000000)"><g><circle id="bounds" cx="20" cy="20" r="20"></circle><polygon id="star" fill="#FFFFFF" points="19.8402662 1 15.3534437 14.6903652 2 14.6903652 12.8571026 22.760444 9.24860522 36 19.8402662 27.6601257 30.7045119 36 27.0514719 22.760444 37.8402662 14.6903652 24.5084135 14.6903652"></polygon></g></g></g></g></g></g></svg>'
-}
+const symbolsArray = [
+  (use) => {use.setAttributeNS(xlinkns, "href", "#review-inactive");},
+  (use) => {use.setAttributeNS(xlinkns, "href", "#review-onestar");},
+  (use) => {use.setAttributeNS(xlinkns, "href", "#review-twostars");},
+  (use) => {use.setAttributeNS(xlinkns, "href", "#review-threestars");},
+  (use) => {use.setAttributeNS(xlinkns, "href", "#review-fourstars");},
+  (use) => {use.setAttributeNS(xlinkns, "href", "#review-fivestars");}
+];
 
 let board = [], boardDivs = [];
 
@@ -69,10 +35,6 @@ function init(boardWidth, boardHeight) {
     }
     board.push(row);
   }
-  // board = new Array(boardHeight);
-  // let boardRow = new Array(boardWidth);
-  // boardRow.fill(0);
-  // board.fill(boardRow); //Fills all rows with the same object, not a copy!
 
   // Create the container element
   let boardElm = document.createElement('div');
@@ -92,8 +54,19 @@ function init(boardWidth, boardHeight) {
         cellElm.setAttribute('class', 'cell');
         cellElm.setAttribute('data-row', i);
         cellElm.setAttribute('data-cell', j);
+
         // Append empty SVG
         let emptySVG = document.createElementNS(svgns, "svg");
+        emptySVG.setAttribute('xmlns', svgns);
+        emptySVG.setAttribute('xmlns:xlink', xlinkns);
+        emptySVG.setAttribute('width', '18px');
+        emptySVG.setAttribute('height', '18px');
+        emptySVG.setAttribute('viewBox', '0 0 48 48');
+        // Append inactive icon to every cell
+        let svguse = document.createElementNS(svgns, "use");
+        svguse.setAttributeNS(xlinkns, "href", "#review-inactive");
+        emptySVG.appendChild(svguse);
+
         cellElm.appendChild(emptySVG);
         //
         rowElm.append(cellElm);
@@ -103,7 +76,7 @@ function init(boardWidth, boardHeight) {
       boardDivs.push(rowDivs);
     }
   )
-  updateBoardDivs(board);
+  // updateBoardDivs(board);
 }
 
 function handleCellClick(event) {
@@ -121,50 +94,34 @@ function handleCellClick(event) {
     board[cellPos.x][cellPos.y] += 1;
   }
 
-  let iconSVG = cell.firstChild;
-  iconSVG.removeChild(iconSVG.firstChild);
-  iconSVG.appendChild(symbolsArray[board[cellPos.x][cellPos.y]]);
+  let iconUseSVG = cell.firstChild.firstChild;
+  symbolsArray[board[cellPos.x][cellPos.y]](iconUseSVG);
 }
 
 function updateBoardDivs(board) {
+
   board.forEach((row, i) => {
     row.forEach((cell, j) => {
-      console.log(boardDivs[i][j]);
-      let iconSVG = boardDivs[i][j].firstChild;
-      if (iconSVG.hasChildNodes()) {
-        iconSVG.removeChild(iconSVG.firstChild);
-      }
-  
+      let iconUseSVG = boardDivs[i][j].firstChild.firstChild;
+
       switch (cell) {
         case REVIEWSTATE.INACTIVE:
-          // boardDivs[i][j].style.backgroundColor = REVIEWCOLOR.INACTIVE;
-          // boardDivs[i][j].innerHTML = REVIEWSYMBOL.INACTIVE;
-          iconSVG.appendChild(symbolsArray[REVIEWSTATE.INACTIVE]);
+          symbolsArray[REVIEWSTATE.INACTIVE](iconUseSVG);
           break;
         case REVIEWSTATE.ONESTAR:
-          // boardDivs[i][j].style.backgroundColor = REVIEWCOLOR.ONESTAR;
-          // boardDivs[i][j].innerHTML = REVIEWSYMBOL.ONESTAR;
-          iconSVG.appendChild(symbolsArray[REVIEWSTATE.ONESTAR]);
+          symbolsArray[REVIEWSTATE.ONESTAR](iconUseSVG);
           break;
         case REVIEWSTATE.TWOSTARS:
-          // boardDivs[i][j].style.backgroundColor = REVIEWCOLOR.TWOSTARS;
-          // boardDivs[i][j].innerHTML = REVIEWSYMBOL.TWOSTARS;
-          iconSVG.appendChild(symbolsArray[REVIEWSTATE.TWOSTARS]);
+          symbolsArray[REVIEWSTATE.TWOSTARS](iconUseSVG);
           break;
         case REVIEWSTATE.THREESTARS:
-          // boardDivs[i][j].style.backgroundColor = REVIEWCOLOR.THREESTARS;
-          // boardDivs[i][j].innerHTML = REVIEWSYMBOL.THREESTARS;
-          iconSVG.appendChild(symbolsArray[REVIEWSTATE.THREESTARS]);
+          symbolsArray[REVIEWSTATE.THREESTARS](iconUseSVG);
           break;
         case REVIEWSTATE.FOURSTARS:
-          // boardDivs[i][j].style.backgroundColor = REVIEWCOLOR.FOURSTARS;
-          // boardDivs[i][j].innerHTML = REVIEWSYMBOL.FOURSTARS;
-          iconSVG.appendChild(symbolsArray[REVIEWSTATE.FOURSTARS]);
+          symbolsArray[REVIEWSTATE.FOURSTARS](iconUseSVG);
           break;
         case REVIEWSTATE.FIVESTARS:
-          // boardDivs[i][j].style.backgroundColor = REVIEWCOLOR.FIVESTARS;
-          // boardDivs[i][j].innerHTML = REVIEWSYMBOL.FIVESTARS;
-          iconSVG.appendChild(symbolsArray[REVIEWSTATE.FIVESTARS]);
+          symbolsArray[REVIEWSTATE.FIVESTARS](iconUseSVG);
           break;
       }
     })
@@ -255,28 +212,42 @@ function getNewState(currentState, cellRow, cellCol) {
   if (currentState === REVIEWSTATE.INACTIVE) {
 
     if (neighborCounter.inactive === 5) {
-      console.log('inactive cell with 3 neighbors');
-      Object.keys(neighborCounter).forEach((c) => {
-        console.log('keys', c);
-      })
-      newCellState = REVIEWSTATE.FIVESTARS;
+      // console.log('inactive cell with 3 neighbors');
+
+      let counters = [];
+      Object.keys(neighborCounter).forEach((key, index) => {
+        if (key === 'inactive') {
+          return;
+        } else {
+          counters.push(neighborCounter[key]);
+        }
+      });
+
+      let maxCounter = Math.max.apply(null, counters); //get the highest count
+      let maxReview = counters.indexOf(maxCounter) + 1; //get the state with the highest count, adjusted since we dont push inactive cells
+      if (maxReview === REVIEWSTATE.FIVESTARS) {
+        newCellState = maxReview;
+      } else {
+        newCellState = maxReview + 1; // the new cell is born one level above the highest neighbor
+      }
+
     } else {
-      console.log('inactive cell with more or less than 3 neighbors');
+      // console.log('inactive cell with more or less than 3 neighbors');
       newCellState = REVIEWSTATE.INACTIVE;
     }
 
   } else {
 
     if (neighborCounter.inactive > 6) {
-      console.log('review cell with less than 2 neighbors');
+      // console.log('review cell with less than 2 neighbors');
       newCellState = REVIEWSTATE.INACTIVE;
     }
     else if (neighborCounter.inactive === 5 || neighborCounter.inactive === 6) {
-      console.log('review cell with 2 or 3 neighbors');
+      // console.log('review cell with 2 or 3 neighbors');
       newCellState = currentState;
     }
     else if (neighborCounter.inactive < 5) {
-      console.log('review cell with more than 3 neighbors');
+      // console.log('review cell with more than 3 neighbors');
       newCellState = --currentState;
     }
     else {
