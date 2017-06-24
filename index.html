@@ -4,164 +4,231 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
-    <meta name="description" content="">
-    <meta name="author" content="">
-    <!-- <link rel="icon" href="../../favicon.ico"> -->
+    <meta name="description" content="An adaptation of Conway’s Game of Life made for Trustpilot">
+    <meta name="author" content="Paulo Cunha">
 
     <title>Game of Trust</title>
 
-    <style>
-      .cell {
-        display: inline-block;
-        width: 20px;
-        height: 20px;
-        /*border: solid 1px black;*/
-        margin: 0;
-      }
-      .row {
-        width: 100%;
-        height: 20px;
-        margin: 0;
-      }
-    </style>
+    <!-- Favicons and icons for mobile -->
+    <link rel="apple-touch-icon" sizes="57x57" href="./assets/apple-icon-57x57.png">
+    <link rel="apple-touch-icon" sizes="60x60" href="./assets/apple-icon-60x60.png">
+    <link rel="apple-touch-icon" sizes="72x72" href="./assets/apple-icon-72x72.png">
+    <link rel="apple-touch-icon" sizes="76x76" href="./assets/apple-icon-76x76.png">
+    <link rel="apple-touch-icon" sizes="114x114" href="./assets/apple-icon-114x114.png">
+    <link rel="apple-touch-icon" sizes="120x120" href="./assets/apple-icon-120x120.png">
+    <link rel="apple-touch-icon" sizes="144x144" href="./assets/apple-icon-144x144.png">
+    <link rel="apple-touch-icon" sizes="152x152" href="./assets/apple-icon-152x152.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="./assets/apple-icon-180x180.png">
+    <link rel="icon" type="image/png" sizes="192x192"  href="./assets/android-icon-192x192.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="./assets/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="96x96" href="./assets/favicon-96x96.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="./assets/favicon-16x16.png">
+    <link rel="manifest" href="/manifest.json">
+    <meta name="msapplication-TileColor" content="#4990E2">
+    <meta name="msapplication-TileImage" content="./assets/ms-icon-144x144.png">
+    <meta name="theme-color" content="#4990E2">
 
-    <!-- Custom styles for this template -->
-    <!-- <link href="styles.css" rel="stylesheet"> -->
+    <link rel="stylesheet" href="./style.css">
   </head>
 
   <body>
-
-<svg hidden width="18px" height="18px" viewBox="0 0 18 18" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
-    <defs>
-        <linearGradient x1="50%" y1="0%" x2="50%" y2="100%" id="linearGradient-5">
-            <stop stop-color="#22B24C" offset="0%"></stop>
-            <stop stop-color="#0C8140" offset="100%"></stop>
-        </linearGradient>
-        <linearGradient x1="50%" y1="0%" x2="50%" y2="100%" id="linearGradient-4">
-            <stop stop-color="#73B343" offset="0%"></stop>
-            <stop stop-color="#57843B" offset="100%"></stop>
-        </linearGradient>
-        <linearGradient x1="50%" y1="0%" x2="50%" y2="100%" id="linearGradient-3">
-            <stop stop-color="#FCD116" offset="0%"></stop>
-            <stop stop-color="#E4B821" offset="100%"></stop>
-        </linearGradient>
-        <linearGradient x1="50%" y1="0%" x2="50%" y2="100%" id="linearGradient-2">
-            <stop stop-color="#F47324" offset="0%"></stop>
-            <stop stop-color="#E75E25" offset="100%"></stop>
-        </linearGradient>
-        <linearGradient x1="50%" y1="0%" x2="50%" y2="100%" id="linearGradient-1">
-            <stop stop-color="#E51E25" offset="0%"></stop>
-            <stop stop-color="#B51F24" offset="100%"></stop>
-        </linearGradient>
-        <linearGradient x1="50%" y1="0%" x2="50%" y2="100%" id="linearGradient-0">
-            <stop stop-color="#D8D9D9" offset="0%"></stop>
-            <stop stop-color="#C0C0C0" offset="100%"></stop>
-        </linearGradient>
-        <g id="review-fivestars" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
-            <g id="Desktop" transform="translate(-678.000000, -253.000000)">
-                <g id="Stars/components/Single-Star" transform="translate(678.000000, 253.000000)">
-                    <g id="Single-Star">
-                        <g id="Stars/bg/5-green" fill="url(#linearGradient-5)">
-                            <rect x="0" y="0" width="48" height="48" rx="5"></rect>
-                        </g>
-                        <g id="Stars/icons/star" transform="translate(4.000000, 4.000000)">
-                            <g>
-                                <circle id="bounds" cx="20" cy="20" r="20"></circle>
-                                <polygon id="star" fill="#FFFFFF" points="19.8402662 1 15.3534437 14.6903652 2 14.6903652 12.8571026 22.760444 9.24860522 36 19.8402662 27.6601257 30.7045119 36 27.0514719 22.760444 37.8402662 14.6903652 24.5084135 14.6903652"></polygon>
+    <svg width="0" height="0" viewBox="0 0 18 18" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+        <defs>
+            <linearGradient x1="50%" y1="0%" x2="50%" y2="100%" id="linearGradient-5">
+                <stop stop-color="#22B24C" offset="0%"></stop>
+                <stop stop-color="#0C8140" offset="100%"></stop>
+            </linearGradient>
+            <linearGradient x1="50%" y1="0%" x2="50%" y2="100%" id="linearGradient-4">
+                <stop stop-color="#73B343" offset="0%"></stop>
+                <stop stop-color="#57843B" offset="100%"></stop>
+            </linearGradient>
+            <linearGradient x1="50%" y1="0%" x2="50%" y2="100%" id="linearGradient-3">
+                <stop stop-color="#FCD116" offset="0%"></stop>
+                <stop stop-color="#E4B821" offset="100%"></stop>
+            </linearGradient>
+            <linearGradient x1="50%" y1="0%" x2="50%" y2="100%" id="linearGradient-2">
+                <stop stop-color="#F47324" offset="0%"></stop>
+                <stop stop-color="#E75E25" offset="100%"></stop>
+            </linearGradient>
+            <linearGradient x1="50%" y1="0%" x2="50%" y2="100%" id="linearGradient-1">
+                <stop stop-color="#E51E25" offset="0%"></stop>
+                <stop stop-color="#B51F24" offset="100%"></stop>
+            </linearGradient>
+            <linearGradient x1="50%" y1="0%" x2="50%" y2="100%" id="linearGradient-0">
+                <stop stop-color="#D8D9D9" offset="0%"></stop>
+                <stop stop-color="#C0C0C0" offset="100%"></stop>
+            </linearGradient>
+            <g id="review-fivestars" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                <g id="Desktop" transform="translate(-678.000000, -253.000000)">
+                    <g id="Stars/components/Single-Star" transform="translate(678.000000, 253.000000)">
+                        <g id="Single-Star">
+                            <g id="Stars/bg/5-green" fill="url(#linearGradient-5)">
+                                <rect x="0" y="0" width="48" height="48" rx="5"></rect>
+                            </g>
+                            <g id="Stars/icons/star" transform="translate(4.000000, 4.000000)">
+                                <g>
+                                    <circle id="bounds" cx="20" cy="20" r="20"></circle>
+                                    <polygon id="star" fill="#FFFFFF" points="19.8402662 1 15.3534437 14.6903652 2 14.6903652 12.8571026 22.760444 9.24860522 36 19.8402662 27.6601257 30.7045119 36 27.0514719 22.760444 37.8402662 14.6903652 24.5084135 14.6903652"></polygon>
+                                </g>
                             </g>
                         </g>
                     </g>
                 </g>
             </g>
-        </g>
-        <g id="review-fourstars" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
-            <g id="Desktop" transform="translate(-678.000000, -309.000000)">
-                <g id="Stars/components/Single-Star" transform="translate(678.000000, 309.000000)">
-                    <g id="Single-Star">
-                        <g id="Stars/bg/4-green" fill="url(#linearGradient-4)">
-                            <rect x="0" y="0" width="48" height="48" rx="5"></rect>
-                        </g>
-                        <g id="Stars/icons/star" transform="translate(4.000000, 4.000000)">
-                            <g>
-                                <circle id="bounds" cx="20" cy="20" r="20"></circle>
-                                <polygon id="star" fill="#FFFFFF" points="19.8402662 1 15.3534437 14.6903652 2 14.6903652 12.8571026 22.760444 9.24860522 36 19.8402662 27.6601257 30.7045119 36 27.0514719 22.760444 37.8402662 14.6903652 24.5084135 14.6903652"></polygon>
+            <g id="review-fourstars" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                <g id="Desktop" transform="translate(-678.000000, -309.000000)">
+                    <g id="Stars/components/Single-Star" transform="translate(678.000000, 309.000000)">
+                        <g id="Single-Star">
+                            <g id="Stars/bg/4-green" fill="url(#linearGradient-4)">
+                                <rect x="0" y="0" width="48" height="48" rx="5"></rect>
+                            </g>
+                            <g id="Stars/icons/star" transform="translate(4.000000, 4.000000)">
+                                <g>
+                                    <circle id="bounds" cx="20" cy="20" r="20"></circle>
+                                    <polygon id="star" fill="#FFFFFF" points="19.8402662 1 15.3534437 14.6903652 2 14.6903652 12.8571026 22.760444 9.24860522 36 19.8402662 27.6601257 30.7045119 36 27.0514719 22.760444 37.8402662 14.6903652 24.5084135 14.6903652"></polygon>
+                                </g>
                             </g>
                         </g>
                     </g>
                 </g>
             </g>
-        </g>
-        <g id="review-threestars" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
-            <g id="Desktop" transform="translate(-678.000000, -365.000000)">
-                <g id="Stars/components/Single-Star" transform="translate(678.000000, 365.000000)">
-                    <g id="Single-Star">
-                        <g id="Stars/bg/3-yellow" fill="url(#linearGradient-3)">
-                            <rect x="0" y="0" width="48" height="48" rx="5"></rect>
-                        </g>
-                        <g id="Stars/icons/star" transform="translate(4.000000, 4.000000)">
-                            <g>
-                                <circle id="bounds" cx="20" cy="20" r="20"></circle>
-                                <polygon id="star" fill="#FFFFFF" points="19.8402662 1 15.3534437 14.6903652 2 14.6903652 12.8571026 22.760444 9.24860522 36 19.8402662 27.6601257 30.7045119 36 27.0514719 22.760444 37.8402662 14.6903652 24.5084135 14.6903652"></polygon>
+            <g id="review-threestars" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                <g id="Desktop" transform="translate(-678.000000, -365.000000)">
+                    <g id="Stars/components/Single-Star" transform="translate(678.000000, 365.000000)">
+                        <g id="Single-Star">
+                            <g id="Stars/bg/3-yellow" fill="url(#linearGradient-3)">
+                                <rect x="0" y="0" width="48" height="48" rx="5"></rect>
+                            </g>
+                            <g id="Stars/icons/star" transform="translate(4.000000, 4.000000)">
+                                <g>
+                                    <circle id="bounds" cx="20" cy="20" r="20"></circle>
+                                    <polygon id="star" fill="#FFFFFF" points="19.8402662 1 15.3534437 14.6903652 2 14.6903652 12.8571026 22.760444 9.24860522 36 19.8402662 27.6601257 30.7045119 36 27.0514719 22.760444 37.8402662 14.6903652 24.5084135 14.6903652"></polygon>
+                                </g>
                             </g>
                         </g>
                     </g>
                 </g>
             </g>
-        </g>
-        <g id="review-twostars" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
-            <g id="Desktop" transform="translate(-678.000000, -421.000000)">
-                <g id="Stars/components/Single-Star" transform="translate(678.000000, 421.000000)">
-                    <g id="Single-Star">
-                        <g id="Stars/bg/2-orange" fill="url(#linearGradient-2)">
-                            <rect x="0" y="0" width="48" height="48" rx="5"></rect>
-                        </g>
-                        <g id="Stars/icons/star" transform="translate(4.000000, 4.000000)">
-                            <g>
-                                <circle id="bounds" cx="20" cy="20" r="20"></circle>
-                                <polygon id="star" fill="#FFFFFF" points="19.8402662 1 15.3534437 14.6903652 2 14.6903652 12.8571026 22.760444 9.24860522 36 19.8402662 27.6601257 30.7045119 36 27.0514719 22.760444 37.8402662 14.6903652 24.5084135 14.6903652"></polygon>
+            <g id="review-twostars" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                <g id="Desktop" transform="translate(-678.000000, -421.000000)">
+                    <g id="Stars/components/Single-Star" transform="translate(678.000000, 421.000000)">
+                        <g id="Single-Star">
+                            <g id="Stars/bg/2-orange" fill="url(#linearGradient-2)">
+                                <rect x="0" y="0" width="48" height="48" rx="5"></rect>
+                            </g>
+                            <g id="Stars/icons/star" transform="translate(4.000000, 4.000000)">
+                                <g>
+                                    <circle id="bounds" cx="20" cy="20" r="20"></circle>
+                                    <polygon id="star" fill="#FFFFFF" points="19.8402662 1 15.3534437 14.6903652 2 14.6903652 12.8571026 22.760444 9.24860522 36 19.8402662 27.6601257 30.7045119 36 27.0514719 22.760444 37.8402662 14.6903652 24.5084135 14.6903652"></polygon>
+                                </g>
                             </g>
                         </g>
                     </g>
                 </g>
             </g>
-        </g>
-        <g id="review-onestar" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
-            <g id="Desktop" transform="translate(-678.000000, -477.000000)">
-                <g id="Stars/components/Single-Star" transform="translate(678.000000, 477.000000)">
-                    <g id="Single-Star">
-                        <g id="Stars/bg/1-red" fill="url(#linearGradient-1)">
-                            <rect x="0" y="0" width="48" height="48" rx="5"></rect>
-                        </g>
-                        <g id="Stars/icons/star" transform="translate(4.000000, 4.000000)">
-                            <g>
-                                <circle id="bounds" cx="20" cy="20" r="20"></circle>
-                                <polygon id="star" fill="#FFFFFF" points="19.8402662 1 15.3534437 14.6903652 2 14.6903652 12.8571026 22.760444 9.24860522 36 19.8402662 27.6601257 30.7045119 36 27.0514719 22.760444 37.8402662 14.6903652 24.5084135 14.6903652"></polygon>
+            <g id="review-onestar" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                <g id="Desktop" transform="translate(-678.000000, -477.000000)">
+                    <g id="Stars/components/Single-Star" transform="translate(678.000000, 477.000000)">
+                        <g id="Single-Star">
+                            <g id="Stars/bg/1-red" fill="url(#linearGradient-1)">
+                                <rect x="0" y="0" width="48" height="48" rx="5"></rect>
+                            </g>
+                            <g id="Stars/icons/star" transform="translate(4.000000, 4.000000)">
+                                <g>
+                                    <circle id="bounds" cx="20" cy="20" r="20"></circle>
+                                    <polygon id="star" fill="#FFFFFF" points="19.8402662 1 15.3534437 14.6903652 2 14.6903652 12.8571026 22.760444 9.24860522 36 19.8402662 27.6601257 30.7045119 36 27.0514719 22.760444 37.8402662 14.6903652 24.5084135 14.6903652"></polygon>
+                                </g>
                             </g>
                         </g>
                     </g>
                 </g>
             </g>
-        </g>
-        <g id="review-inactive" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
-
-                    <g id="Single-Star">
-                        <g id="Stars/bg/gray" fill="url(#linearGradient-0)">
-                            <rect x="0" y="0"  rx="5" width="48" height="48"></rect>
+            <g id="review-inactive" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+              <g id="Single-Star">
+                <g id="Stars/bg/gray" fill="url(#linearGradient-0)">
+                  <rect x="0" y="0"  rx="5" width="48" height="48"></rect>
+                </g>
+                <g id="Stars/icons/star" transform="translate(4.000000, 4.000000)">
+                  <g>
+                    <circle id="bounds" cx="20" cy="20" r="20"></circle>
+                    <polygon id="star" fill="#FFFFFF" points="19.8402662 1 15.3534437 14.6903652 2 14.6903652 12.8571026 22.760444 9.24860522 36 19.8402662 27.6601257 30.7045119 36 27.0514719 22.760444 37.8402662 14.6903652 24.5084135 14.6903652"></polygon>
+                  </g>
+                </g>
+              </g>
+            </g>
+            <g id="tp-logo" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                <g id="Desktop" transform="translate(-447.000000, -72.000000)">
+                    <g id="logo" transform="translate(447.000000, 72.000000)">
+                        <g id="Group" transform="translate(16.000000, 2.000000)" stroke-width="2">
+                            <path d="M13.0289985,15.9460244 L13.0289985,8.43794892 L13.0289985,1.99199469 L17.3786861,1.99199469 C17.3786861,1.99199469 19.6236187,2.34424502 19.6197835,4.26720347 C19.6159482,6.19016191 19.6551344,8.38158749 17.6066134,8.45245615 C15.5580924,8.5233248 13.0289985,8.45245615 13.0289985,8.45245615" id="Path-2" stroke="#4990E2"></path>
+                            <path d="M17.7323427,8.53799878 L20.6813126,15.9535282" id="Path-3" stroke="#4990E2"></path>
+                            <path d="M24.0437754,1.16193091 L24.0437754,11.7682853 C24.0437754,11.7682853 24.6764254,15.1812416 28.0000529,15.1812416 C31.3236804,15.1812416 32.1563594,11.7424258 32.1563594,11.7424258 L32.1563594,1.05734169" id="Path-4" stroke="#4990E2"></path>
+                            <path d="M41.9684149,3.08956398 C41.9684149,3.08956398 40.779095,1.86834574 39.1183888,1.86834574 C37.4576826,1.86834574 35.9735248,3.2576947 35.9735248,4.99083664 C35.9735248,6.72397858 42.1274635,9.99643588 42.1274635,11.6170476 C42.1274635,13.2376594 41.1866846,15.110135 38.5801047,15.110135 C35.9735248,15.110135 35.5238471,13.6129077 35.5238471,13.0128206" id="Path-5" stroke="#4990E2"></path>
+                            <path d="M114.444568,3.22121824 C114.444568,3.22121824 113.255248,2 111.594542,2 C109.933836,2 108.449678,3.38934896 108.449678,5.1224909 C108.449678,6.85563284 114.603616,10.1280901 114.603616,11.7487019 C114.603616,13.3693137 113.662837,15.2417892 111.056258,15.2417892 C108.449678,15.2417892 108,13.7445619 108,13.1444748" id="Path-5-Copy" stroke="#4990E2"></path>
+                            <path d="M56.5981221,15.7744151 L56.5981221,9.30835894 L56.5981221,1.78540429 L60.4578926,1.78540429 C60.4578926,1.78540429 62.8989583,2.26032546 62.8989583,5.52011759 C62.8989583,8.77990972 60.8539846,9.31160309 59.7298863,9.31160309 L56.5981221,9.31160309" id="Path-6" stroke="#A5CBF8"></path>
+                            <path d="M67.1017558,15.8960708 L67.1017558,0.965344924" id="Path-7" stroke="#A5CBF8"></path>
+                            <polyline id="Path-8" stroke="#A5CBF8" points="72.0706364 0.975062171 72.0706364 15.0420904 77.8920166 15.0420904"></polyline>
+                            <path d="M84.4491576,1.95155159 C86.2386943,1.94563502 89.0048723,1.2656454 89.0048723,8.39258149 C89.0048723,15.5195176 84.9802714,14.9631457 84.0756168,14.9631457 C83.1709621,14.9631457 79.8934428,14.6074477 79.8934428,8.42270575 C79.8934428,2.23796377 82.6596208,1.95746817 84.4491576,1.95155159 Z" id="Path-9" stroke="#A5CBF8"></path>
+                            <polyline id="Path-10" stroke="#A5CBF8" points="95.124963 15.9595635 95.124963 2.06015183 99.8957502 2.06015183 90.1098497 2.06015183"></polyline>
+                            <polyline id="Path-10-Copy" stroke="#4990E2" points="48.8259087 15.8994116 48.8259087 2 53.5966958 2 43.8107954 2"></polyline>
+                            <polyline id="Path-10-Copy-2" stroke="#4990E2" points="5.25678511 15.8994116 5.25678511 2 10.0275723 2 0.24167181 2"></polyline>
                         </g>
-                        <g id="Stars/icons/star" transform="translate(4.000000, 4.000000)">
-                            <g>
-                                <circle id="bounds" cx="20" cy="20" r="20"></circle>
-                                <polygon id="star" fill="#FFFFFF" points="19.8402662 1 15.3534437 14.6903652 2 14.6903652 12.8571026 22.760444 9.24860522 36 19.8402662 27.6601257 30.7045119 36 27.0514719 22.760444 37.8402662 14.6903652 24.5084135 14.6903652"></polygon>
-                            </g>
-                        </g>
+                        <rect id="Rectangle-3-Copy-2" fill="#4990E2" x="0" y="3" width="14" height="15"></rect>
+                        <path d="M3.21838712,11.6151555 C4.42259281,12.6028748 6.36005895,14.9514905 6.36005895,14.9514905 C6.36005895,14.9514905 7.74430627,10.4428117 8.98910317,8.54550034 C10.2339001,6.64818894 14.0039125,3.00967445 14.0039125,3.00967445 L14.0039125,8.95845795 C14.0039125,8.95845795 11.9162527,10.7365524 10.2524498,12.8440215 C8.58864694,14.9514905 7.65645261,17.9994193 7.65645261,17.9994193 L6.36005895,17.9994193 C6.36005895,17.9994193 4.52385259,16.5515696 3.43771055,15.7515301 C2.35156852,14.9514905 0.968905094,14.5809107 0.615288414,14.5809107 L0,14.5809107 L0,9.12207001 C0,9.12207001 2.01418142,10.6274362 3.21838712,11.6151555 Z" id="Rectangle-3-Copy" fill="#FFFFFF"></path>
+                        <rect id="Rectangle-4" fill="#4990E2" x="119" y="0" width="2" height="5"></rect>
                     </g>
+                </g>
+            </g>
+        </defs>
+    </svg>
 
-        </g>
-    </defs>
+    <section class="home">
+      <hr />
+      <!-- Logo -->
+      <svg class="tp-logo" width="132px" height="19px" viewBox="0 0 132 19" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+          <use href="#tp-logo"/>
+      </svg>
+      <h1 class="home__title">Game of Trust</h1>
+      <h3 class="home__subtitle">An adaptation of Conway’s Game of Life<br/>
+with Reviews</h3>
+      <p class="home__lead-text">In 1970, xx Conway created the game of life. It was an implementation of celula automaton and showed that very simple rules can create very complex behaviors.<br/><br/>I made an adaptation of this using review stars as states. In my version, each cell can have 6 states. Try it out!</p>
+      <div class="home__buttons">
+        <button onclick="console.log('hello');">Single Player</button>
+        <button onclick="console.log('hello');">Multiplayer</button>
+        <button onclick="console.log('hello');">Patterns &#47; Sandbox</button>
+      </div>
+      <hr />
+    </section>
 
-</svg>
+    <section class="single-player">
+      <header>
+        <span><a href="#">Home</a> &#62; Single Player</span>
+        <svg class="tp-logo" width="132px" height="19px" viewBox="0 0 132 19" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+            <use href="#tp-logo"/>
+        </svg>
+      </header>
+    </section>
 
+    <section class="multiplayer">
+      <header>
+        <span><a href="#">Home</a> &#62; Multiplayer</span>
+        <svg class="tp-logo" width="132px" height="19px" viewBox="0 0 132 19" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+            <use href="#tp-logo"/>
+        </svg>
+      </header>
+    </section>
+
+    <section class="sandbox">
+      <header>
+        <span><a href="#">Home</a> &#62; Sandbox</span>
+        <svg class="tp-logo" width="132px" height="19px" viewBox="0 0 132 19" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+            <use href="#tp-logo"/>
+        </svg>
+      </header>
+    </section>
+
+
+    <small class="authorship">Designed and built by <a target="_blank" href="https://github.com/pmrcunha">@pmrcunha</a></small>
     <script src="./main.js"></script>
   </body>
 </html>
