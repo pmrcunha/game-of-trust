@@ -24,7 +24,7 @@ const symbolsArray = [
 let board = [], boardDivs = [];
 
 // Initialize and set board dimensions
-init(50, 50);
+init(30, 30);
 
 function init(boardWidth, boardHeight) {
   // Create the board array
@@ -37,8 +37,11 @@ function init(boardWidth, boardHeight) {
   }
 
   // Create the container element
-  let boardElm = document.createElement('div');
-  document.body.append(boardElm);
+  // let boardElm = document.createElement('div');
+  // document.body.append(boardElm);
+
+  // Get the container element
+  let boardElm = document.getElementById('container-sandbox');
 
   // Create the review cells from the array
   // and add them to an elements array, so that they are easier to access
@@ -129,6 +132,8 @@ function updateBoardDivs(board) {
 }
 
 function startGame(turns) {
+  let counterElm = document.getElementById('turn-counter');
+
   let counter = 0;
   let nextBoard;
 
@@ -142,6 +147,7 @@ function startGame(turns) {
       board = nextGeneration(board);
       // Update the board
       updateBoardDivs(board);
+      counterElm.innerText = counter;
       counter++;
     }
   }, 500);
