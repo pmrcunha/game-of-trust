@@ -17,7 +17,7 @@ a:visited {
   color: #4990E2;
 }
 
-p, span {
+p, span, label {
   font-size: 18px;
   font-weight: 100;
   color: #4990E2;
@@ -71,6 +71,19 @@ button.stop-button {
 }
 button.stop-button:hover {
   box-shadow: 2px 2px 5px 0 rgba(208,2,27,1);
+}
+
+input {
+  width: 50px;
+  height: 50px;
+  background: #FFFFFF;
+  border: 2px solid #4990E2;
+  border-radius: 5px;
+
+  color: #4990E2;
+  font-size: 20px;
+  text-align: center;
+  vertical-align: middle;
 }
 
 header {
@@ -195,11 +208,10 @@ header {
 }
 
 .panel {
-  position: relative;
-  width: 25%;
-  max-width: 300px;
+    width: 25%;
+    max-width: 300px;
 
-  display: inline-block;
+    text-align: center;
 }
 
 .panel__item {

@@ -29,6 +29,7 @@
     <meta name="theme-color" content="#4990E2">
 
     <link rel="stylesheet" href="./style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.5.2/animate.min.css">
   </head>
 
   <body>
@@ -203,7 +204,7 @@
         </defs>
     </svg>
 
-    <section class="home">
+    <section id="home" class="home animated fadeIn">
       <!-- Logo -->
       <svg class="logo-center" width="132px" height="19px" viewBox="0 0 132 19" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
           <use href="#tp-logo-s"/>
@@ -211,77 +212,55 @@
       <h1 class="home__title">Game of Trust</h1>
       <h3 class="home__subtitle">An adaptation of Conway’s Game of Life<br/>
 with Reviews</h3>
-      <p class="home__lead-text">In 1970, John Conway created the <a target="_blank" href="https://en.wikipedia.org/wiki/Conway%27s_Game_of_Life">Game of Life</a>. It was an implementation of celula automaton and showed that very simple rules can create very complex behaviors.<br/><br/>I made an adaptation of this using review stars as states. In my version, each cell can have 6 states. Try it out!</p>
+      <p class="home__lead-text">In 1970, John Conway created the <a target="_blank" href="https://en.wikipedia.org/wiki/Conway%27s_Game_of_Life">Game of Life</a>. It was an implementation of a celullar automaton and showed that very simple rules can create very complex behaviors.<br/><br/>The "game" is a zero-player game, meaning that its evolution is determined by its initial state, requiring no further input. One interacts with the Game of Life by creating an initial configuration and observing how it evolves, or, for advanced "players", by creating patterns with particular properties.<br/><br/>I made an adaptation of this using review stars as states. In my version, each cell can have 6 states. Try it out!</p>
       <div class="home__buttons">
-        <button onclick="console.log('hello');">Single Player</button>
-        <button onclick="console.log('hello');">Multiplayer</button>
-        <button onclick="console.log('hello');">Patterns &#47; Sandbox</button>
+        <button onclick="gotoSinglePlayer();">Single Player</button>
+        <button onclick="gotoMultiplayer();">Multiplayer</button>
+        <button onclick="gotoSandbox();">Patterns &#47; Sandbox</button>
       </div>
     </section>
 
-    <hr />
+    <header id="header" class="animated fadeInhidden" style="display: none;">
+      <span class="breadcrumbs">
+        <a onclick="gotoHome();">Home</a>
+         &#62;
+         <span id="current-page" class="breadcrumbs__current"></span>
+       </span>
+      <svg class="header__logo" width="132px" height="19px" viewBox="0 0 132 19" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+          <use href="#tp-logo"/>
+      </svg>
+    </header>
 
-    <section class="single-player">
-      <header>
-        <span class="breadcrumbs">
-          <a href="#">Home</a>
-           &#62;
-           <span class="breadcrumbs__current">Single Player</span>
-         </span>
-        <svg class="header__logo" width="132px" height="19px" viewBox="0 0 132 19" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
-            <use href="#tp-logo"/>
-        </svg>
-      </header>
-      <div class="content">
-      <div id="container-single" class="board"></div>
-      <div class="panel"></div>
-    </div><!-- .content -->
-    </section>
-
-    <hr />
-
-    <section class="multiplayer">
-      <header>
-        <span class="breadcrumbs">
-          <a href="#">Home</a>
-           &#62;
-           <span class="breadcrumbs__current">Multiplayer</span>
-         </span>
-        <svg class="header__logo" width="132px" height="19px" viewBox="0 0 132 19" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
-            <use href="#tp-logo"/>
-        </svg>
-      </header>
-      <div class="content">
-      <div id="container-multiplayer" class="board"></div>
-      <div class="panel"></div>
-    </div><!-- .content -->
-    </section>
-
-    <hr />
-
-    <section class="sandbox">
-      <header>
-        <span class="breadcrumbs">
-          <a href="#">Home</a>
-           &#62;
-           <span class="breadcrumbs__current">Sandbox</span>
-         </span>
-        <svg class="header__logo" width="132px" height="19px" viewBox="0 0 132 19" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
-            <use href="#tp-logo"/>
-        </svg>
-      </header>
-      <div class="content">
-        <div class="game">
-          <div id="container-sandbox" class="game__board board"></div>
-          <div class="game__controls">
-            <h3 id="turn-counter" class="game__counter">0</h3>
-            <div class="game__buttons">
-              <button onclick="startGame(50);">Start</button>
-              <button class="stop-button">Stop</button>
-            </div>
+    <section id="content" class="content animated fadeIn" style="display: none;">
+      <div class="game">
+        <div id="board" class="game__board board"></div>
+        <div class="game__controls">
+          <h3 id="turn-counter" class="game__counter">0</h3>
+          <div class="game__buttons">
+            <button onclick="startGame(50);">Start</button>
+            <button class="stop-button">Stop</button>
           </div>
         </div>
-      <div class="panel">
+      </div>
+
+      <div id="panel-single" class="panel">
+        <p>Your goal is to reach the highest Trustscore possible, i.e. to have the most stars possible at the end of the game.<br/><br/>You can place 25 stars before you start the game. A green star is worth 5 stars, an orange one 2, and so on.<br/><br/>Click multiple times to change the color.</p>
+        <h3>Player 1</h3>
+        <span><p>Stars left to place:</p><p>25</p></span>
+        <span><p>Placed:</p><p>0</p></span>
+        <span><label for="nr-turns">Number of turns:</label><input id="nr-turns" type="number" value="50"/></span>
+      </div>
+      <div id="panel-multiplayer" class="panel">
+        <p>Player 1 likes this company, so they’re trying to fill the board with green stars. Player 2 hates it, and is trying to fill it with red ones.</p>
+        <h3>Player 1</h3>
+        <span><p>Stars left to place:</p><p>12</p></span>
+        <span><p>Placed:</p><p>0</p></span>
+        <h3>Player 2</h3>
+        <span><p>Stars left to place:</p><p>12</p></span>
+        <span><p>Placed:</p><p>0</p></span>
+        <span><label for="nr-turns-multi">Number of turns:</label><input id="nr-turns-multi" type="number" value="50"/></span>
+      </div>
+      <div id="panel-sandbox" class="panel">
         <a href="#">
           <div class="panel__item">
             <p class="panel__link">Exploder</p>
@@ -313,14 +292,14 @@ with Reviews</h3>
           </div>
         </a>
         <button>Reset</button>
-      </div><!-- .panel -->
-    </div><!-- .content -->
+      </div>
+
     </section>
-    <hr />
 
     <div class="authorship">
       <small>Designed and built by <a target="_blank" href="https://github.com/pmrcunha">@pmrcunha</a></small>
     </div>
+    <script src="./ui.js"></script>
     <script src="./main.js"></script>
   </body>
 </html>

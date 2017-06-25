@@ -41,7 +41,7 @@ function init(boardWidth, boardHeight) {
   // document.body.append(boardElm);
 
   // Get the container element
-  let boardElm = document.getElementById('container-sandbox');
+  let boardElm = document.getElementById('board');
 
   // Create the review cells from the array
   // and add them to an elements array, so that they are easier to access
