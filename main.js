@@ -26,8 +26,8 @@ let board = [], boardDivs = [];
 // Initialize and set board dimensions
 init(30, 30);
 
-function init(boardWidth, boardHeight) {
-  // Create the board array
+function createBoardArray(boardWidth, boardHeight) {
+  let board = [];
   for (var i = 0; i < boardHeight; i++) {
     let row = [];
     for (var j = 0; j < boardWidth; j++) {
@@ -35,10 +35,12 @@ function init(boardWidth, boardHeight) {
     }
     board.push(row);
   }
+  return board;
+}
 
-  // Create the container element
-  // let boardElm = document.createElement('div');
-  // document.body.append(boardElm);
+function init(boardWidth, boardHeight) {
+  // Create the board array
+  board = createBoardArray(boardWidth, boardHeight);
 
   // Get the container element
   let boardElm = document.getElementById('board');
@@ -131,32 +133,72 @@ function updateBoardDivs(board) {
   })
 }
 
-function startGame(turns) {
-  let counterElm = document.getElementById('turn-counter');
+let counter = 0;
+let intervalID;
+let isGameStopped;
+const counterElm = document.getElementById('turn-counter');
 
-  let counter = 0;
+function startGame() {
+  switch (currentPage) {
+    case PAGES.SINGLEPLAYER:
+      const turns = Number(document.getElementById('nr-turns').value);
+      runGame(turns, TrustpilotSingleRules);
+      break;
+    case PAGES.MULTIPLAYER:
+      const turnsMulti = Number(document.getElementById('nr-turns-multi').value);
+      runGame(turnsMulti);
+      break;
+    default:
+      runGame();
+  }
+}
+
+function runGame(turns, rules) {
+  rules = rules || TrustpilotSingleRules;
+  turns = turns || null; //Allow for a continuous game
+  if (turns) {
+    turns += counter //increment turns if we are continuing a game
+  }
+
+  isGameStopped = false;
   let nextBoard;
 
-  let intervalID = window.setInterval(() => {
-    if (counter > turns) {
+  intervalID = window.setInterval(() => {
+
+    if (turns && counter >= turns || isGameStopped) {
       window.clearInterval(intervalID);
       getResults();
+      showStartButton();
     }
     else {
-      console.log('turn:', counter);
-      board = nextGeneration(board);
+      counter++;
+      board = nextGeneration(board, rules);
       // Update the board
       updateBoardDivs(board);
       counterElm.innerText = counter;
-      counter++;
     }
   }, 500);
+
+  showStopButton();
 }
 
-function nextGeneration(board) {
+function stopGame() {
+  isGameStopped = true;
+  showStartButton();
+}
+
+function resetGame() {
+  counter = 0;
+  isGameStopped = false;
+  board = createBoardArray(30, 30);
+  updateBoardDivs(board);
+  counterElm.innerText = counter;
+}
+
+function nextGeneration(board, rules) {
   let nextBoard = board.map((row, i) => {
     return row.map((cellState, j) => {
-      return getNewState(cellState, i, j);
+      return getNewState(cellState, i, j, rules);
     })
   });
 
@@ -164,7 +206,7 @@ function nextGeneration(board) {
   return nextBoard;
 }
 
-function getNewState(currentState, cellRow, cellCol) {
+function getNewState(currentState, cellRow, cellCol, rules) {
   let newCellState;
   let neighborCounter = {
     inactive:   0,
@@ -214,7 +256,11 @@ function getNewState(currentState, cellRow, cellCol) {
     }
   }
   // Calculate the new state according to the rules of the game
+  return rules(currentState, neighborCounter);
+}
 
+function TrustpilotSingleRules(currentState, neighborCounter) {
+  let newCellState;
   if (currentState === REVIEWSTATE.INACTIVE) {
 
     if (neighborCounter.inactive === 5) {

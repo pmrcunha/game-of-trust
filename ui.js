@@ -12,6 +12,8 @@ const panelSingle = document.getElementById('panel-single');
 const panelMultiplayer = document.getElementById('panel-multiplayer');
 const panelSandbox = document.getElementById('panel-sandbox');
 
+const startButton = document.getElementById('start-button');
+const stopButton = document.getElementById('stop-button');
 
 const PAGES = {
   HOME: 0,
@@ -33,36 +35,56 @@ function hide(elements) {
   })
 }
 
+function gotoPage(page) {
+  switch (page) {
+    case PAGES.HOME:
+      hide([header, content]);
+      reveal([home]);
+      break;
+    case PAGES.SINGLEPLAYER:
+      hide([home, panelMultiplayer, panelSandbox]);
+      reveal([header, content, panelSingle]);
+      break;
+    case PAGES.MULTIPLAYER:
+      hide([home, panelSingle, panelSandbox]);
+      reveal([header, content, panelMultiplayer]);
+      break;
+    case PAGES.SANDBOX:
+      hide([home, panelMultiplayer, panelSingle]);
+      reveal([header, content, panelSandbox]);
+      break;
+  }
+}
+
 function gotoHome() {
   currentPage = PAGES.HOME;
-
-  hide([header, content]);
-  reveal([home]);
+  gotoPage(PAGES.HOME);
 }
 
 function gotoSinglePlayer() {
   currentPage = PAGES.SINGLEPLAYER;
   currentPageElm.innerText = 'Single Player';
-
-  hide([home, panelMultiplayer, panelSandbox]);
-  reveal([header, content, panelSingle]);
-
+  gotoPage(PAGES.SINGLEPLAYER);
 }
 
 function gotoMultiplayer() {
   currentPage = PAGES.MULTIPLAYER;
   currentPageElm.innerText = 'Multiplayer';
-
-  hide([home, panelSingle, panelSandbox]);
-  reveal([header, content, panelMultiplayer]);
-
+  gotoPage(PAGES.MULTIPLAYER);
 }
 
 function gotoSandbox() {
   currentPage = PAGES.SANDBOX;
   currentPageElm.innerText = 'Sandbox';
+  gotoPage(PAGES.SANDBOX);
+}
 
-  hide([home, panelMultiplayer, panelSingle]);
-  reveal([header, content, panelSandbox]);
+function showStartButton() {
+  hide([stopButton]);
+  reveal([startButton]);
+}
 
+function showStopButton() {
+  hide([startButton]);
+  reveal([stopButton]);
 }

@@ -98,6 +98,7 @@ header {
 
 .breadcrumbs > a {
   font-weight: 200;
+  cursor: pointer;
 }
 
 .breadcrumbs__current {
@@ -212,6 +213,48 @@ header {
     max-width: 300px;
 
     text-align: center;
+}
+
+.panel__description {
+  margin: 0 0 60px;
+}
+
+.panel__stats {
+  position: relative;
+  text-align: left;
+  display: block;
+}
+
+.panel__stats p {
+  display: inline;
+  line-height: 30px;
+}
+
+.panel__value {
+  text-align: right;
+  position: absolute;
+  right: 0;
+  margin: 0;
+}
+
+.panel__turns-input {
+  height: 50px;
+  position: relative;
+  text-align: left;
+  display: block;
+  margin: 25px 0 0;
+}
+
+.panel__turns-input > label {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  text-align: left;
+}
+
+.panel__turns-input > input {
+  position: absolute;
+  right: 0;
 }
 
 .panel__item {
