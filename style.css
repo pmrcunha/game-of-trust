@@ -40,7 +40,7 @@ h1 {
   text-transform: uppercase;
 }
 
-button {
+button, select {
   display: block;
   max-width: 300px;
   width: 100%;
@@ -60,6 +60,10 @@ button {
   cursor: pointer;
 }
 
+select {
+  font: 16px 'Helvetica Neue';
+}
+
 button:hover {
   box-shadow: 2px 2px 5px 0 rgba(74,144,226,1);
 }
@@ -74,6 +78,14 @@ button.stop-button:hover {
 }
 button.inline-button {
   display: inline-block;
+}
+button[disabled] {
+  color: #A5CBF7;
+  border: 2px solid #A5CBF7;
+  cursor: default;
+}
+button[disabled]:hover {
+  box-shadow: 2px 2px 5px 0 rgba(74,144,226,0.30);
 }
 
 input {
@@ -215,12 +227,17 @@ header {
 .panel {
     width: 25%;
     max-width: 300px;
+}
 
-    text-align: center;
+.panel label {
+  display: block;
+  text-align: left;
+  margin: 0 0 5px;
 }
 
 .panel__description {
   margin: 0 0 60px;
+  text-align: center;
 }
 
 .panel__stats {
@@ -267,7 +284,7 @@ header {
   text-decoration: none;
 }
 
-.panel__link {
+.panel__item p {
   font-size: 20px;
   font-weight: 500;
   color: #4990E2;
@@ -278,7 +295,7 @@ header {
   margin: 0 0 5px;
 }
 
-.panel__label {
+.panel__item small {
   display: block;
   font-size: 14px;
   font-weight: 100;

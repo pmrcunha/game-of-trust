@@ -248,21 +248,29 @@ with Reviews</h3>
       <div id="panel-single" class="panel">
         <p class="panel__description">Your goal is to reach the highest Trustscore possible, i.e. to have the most stars possible at the end of the game.<br/><br/>You can place 25 stars before you start the game. A green star is worth 5 stars, an orange one 2, and so on.<br/><br/>Click multiple times to change the color.</p>
         <h3>Player 1</h3>
-        <span class="panel__stats"><p>Stars left to place:</p><p class="panel__value">25</p></span>
-        <span class="panel__stats"><p>Placed:</p><p class="panel__value">0</p></span>
+        <span class="panel__stats"><p>Stars left to place:</p><p id="single-stars-left" class="panel__value">25</p></span>
+        <span class="panel__stats"><p>Placed:</p><p id="single-stars-used" class="panel__value">0</p></span>
         <span class="panel__turns-input"><label for="nr-turns">Number of turns:</label><input id="nr-turns" type="number" value="50"/></span>
       </div>
       <div id="panel-multiplayer" class="panel">
         <p class="panel__description">Player 1 likes this company, so they’re trying to fill the board with green stars. Player 2 hates it, and is trying to fill it with red ones.</p>
         <h3>Player 1</h3>
-        <span class="panel__stats"><p>Stars left to place:</p><p class="panel__value">12</p></span>
-        <span class="panel__stats"><p>Placed:</p><p class="panel__value">0</p></span>
+        <span class="panel__stats"><p>Stars left to place:</p><p id="p1-stars-left" class="panel__value">12</p></span>
+        <span class="panel__stats"><p>Placed:</p><p id="p1-stars-used" class="panel__value">0</p></span>
+        <button id="player1-ready" onclick="playerReady();">Ready</button>
         <h3>Player 2</h3>
-        <span class="panel__stats"><p>Stars left to place:</p><p class="panel__value">12</p></span>
-        <span class="panel__stats"><p>Placed:</p><p class="panel__value">0</p></span>
+        <span class="panel__stats"><p>Stars left to place:</p><p id="p2-stars-left" class="panel__value">12</p></span>
+        <span class="panel__stats"><p>Placed:</p><p id="p2-stars-used" class="panel__value">0</p></span>
+        <button id="player2-ready" disabled onclick="playerReady();">Ready</button>
         <span class="panel__turns-input"><label for="nr-turns-multi">Number of turns:</label><input id="nr-turns-multi" type="number" value="50"/></span>
       </div>
       <div id="panel-sandbox" class="panel">
+        <label for="dropdown-rules">Rules</label>
+        <select id="dropdown-rules">
+          <option default value=0>Trustpilot Single</option>
+          <option value=1>Trustpilot Multiplayer</option>
+          <option value=2>Conway's rules</option>
+        </select>
         <a href="#">
           <div class="panel__item">
             <p class="panel__link">Exploder</p>

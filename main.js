@@ -9,6 +9,17 @@ const REVIEWSTATE = {
   FIVESTARS:  5
 }
 
+const RULES = {
+  TPSINGLE: 0,
+  TPMULTI:  1,
+  CONWAY:   2,
+  functions: {
+    0: trustpilotSingleRules,
+    1: trustpilotMultiRules,
+    2: conwaysRules
+  }
+}
+
 const  svgns = "http://www.w3.org/2000/svg";
 const  xlinkns = "http://www.w3.org/1999/xlink";
 
@@ -21,7 +32,22 @@ const symbolsArray = [
   (use) => {use.setAttributeNS(xlinkns, "href", "#review-fivestars");}
 ];
 
-let board = [], boardDivs = [];
+let currentPlayer,
+    board = [],
+    boardDivs = [];
+
+const singleStarsLeftElm = document.getElementById('single-stars-left');
+const singleStarsUsedElm = document.getElementById('single-stars-used');
+
+const p1StarsLeftElm = document.getElementById('p1-stars-left');
+const p1StarsUsedElm = document.getElementById('p1-stars-used');
+
+const p2StarsLeftElm = document.getElementById('p2-stars-left');
+const p2StarsUsedElm = document.getElementById('p2-stars-used');
+
+const availableStars = 25;
+const availableStarsMultiplayer = 12;
+let placedStars = 0;
 
 // Initialize and set board dimensions
 init(30, 30);
@@ -81,7 +107,37 @@ function init(boardWidth, boardHeight) {
       boardDivs.push(rowDivs);
     }
   )
-  // updateBoardDivs(board);
+  currentPlayer = 1;
+}
+
+function getRules() {
+  const dropdownRules = document.getElementById('dropdown-rules');
+
+  switch (currentPage) {
+    case PAGES.SINGLEPLAYER:
+      return RULES.TPSINGLE;
+    case PAGES.MULTIPLAYER:
+      return RULES.TPMULTI;
+    case PAGES.SANDBOX:
+      return Number(dropdownRules.value);
+    default:
+      return RULES.TPSINGLE;
+  }
+}
+
+function playerReady() {
+  console.log('player ready');
+  placedStars = 0;
+  if (currentPlayer === 1) {
+    currentPlayer = 2;
+    enablePlayer2();
+  } else if (currentPlayer === 2) {
+    currentPlayer = 0;
+    enableStart();
+  } else {
+    currentPlayer = 1;
+    enablePlayer1();
+  }
 }
 
 function handleCellClick(event) {
@@ -91,13 +147,66 @@ function handleCellClick(event) {
     y: cell.getAttribute('data-cell')
   }
 
-  console.log(cellPos.x, cellPos.y );
+  switch (getRules()) {
 
-  if (board[cellPos.x][cellPos.y] === REVIEWSTATE.FIVESTARS) {
-    board[cellPos.x][cellPos.y] = REVIEWSTATE.INACTIVE;
-  } else {
-    board[cellPos.x][cellPos.y] += 1;
+    case RULES.TPSINGLE:
+      console.log('tpsingle');
+      if (
+        placedStars > availableStars ||
+        board[cellPos.x][cellPos.y] === REVIEWSTATE.FIVESTARS
+      ) {
+        placedStars -= board[cellPos.x][cellPos.y];
+        board[cellPos.x][cellPos.y] = REVIEWSTATE.INACTIVE;
+      } else {
+        placedStars++;
+        board[cellPos.x][cellPos.y]++;
+      }
+
+      singleStarsLeftElm.innerText = availableStars - placedStars;
+      singleStarsUsedElm.innerText = placedStars;
+      break;
+
+    case RULES.TPMULTI:
+      console.log('tpmulti');
+
+      if (currentPlayer === 1) {
+        if (board[cellPos.x][cellPos.y] === REVIEWSTATE.FIVESTARS) {
+          --placedStars;
+          board[cellPos.x][cellPos.y] = REVIEWSTATE.INACTIVE;
+        } else if (board[cellPos.x][cellPos.y] === REVIEWSTATE.INACTIVE && placedStars < availableStarsMultiplayer) {
+          ++placedStars;
+          board[cellPos.x][cellPos.y] = REVIEWSTATE.FIVESTARS;
+        }
+
+        p1StarsLeftElm.innerText = availableStarsMultiplayer - placedStars;
+        p1StarsUsedElm.innerText = placedStars;
+      } else if (currentPlayer === 2) {
+        if (board[cellPos.x][cellPos.y] === REVIEWSTATE.ONESTAR) {
+          --placedStars;
+          board[cellPos.x][cellPos.y] = REVIEWSTATE.INACTIVE;
+        } else if (board[cellPos.x][cellPos.y] === REVIEWSTATE.INACTIVE && placedStars < availableStarsMultiplayer) {
+          ++placedStars;
+          board[cellPos.x][cellPos.y] = REVIEWSTATE.ONESTAR;
+        }
+
+        p2StarsLeftElm.innerText = availableStarsMultiplayer - placedStars;
+        p2StarsUsedElm.innerText = placedStars;
+      } else {
+        console.warn('currentPlayer incorrectly set or both have played');
+      }
+     break;
+
+    case RULES.CONWAY:
+      console.log('conway');
+      if (board[cellPos.x][cellPos.y] === REVIEWSTATE.FIVESTARS) {
+        board[cellPos.x][cellPos.y] = REVIEWSTATE.INACTIVE;
+      } else {
+        board[cellPos.x][cellPos.y] = REVIEWSTATE.FIVESTARS;
+      }
+      break;
   }
+
+
 
   let iconUseSVG = cell.firstChild.firstChild;
   symbolsArray[board[cellPos.x][cellPos.y]](iconUseSVG);
@@ -142,19 +251,22 @@ let turns;
 const inputTurns = document.getElementById('nr-turns');
 const inputTurnsMulti = document.getElementById('nr-turns-multi');
 
+
+
 function startGame() {
+  // Get number of turns
   switch (currentPage) {
     case PAGES.SINGLEPLAYER:
       turns = Number(inputTurns.value);
-      runGame(turns, trustpilotSingleRules);
       break;
     case PAGES.MULTIPLAYER:
       turns = Number(inputTurnsMulti.value);
-      runGame(turns, trustpilotMultiRules);
       break;
     default:
-      runGame();
+      turns = null;
   }
+  //
+  runGame(turns, RULES.functions[getRules()]);
 }
 
 function runGame(turns, rules) {
@@ -201,6 +313,9 @@ function resetGame() {
   counter = 0;
   isGameStopped = false;
   board = createBoardArray(30, 30);
+  currentPlayer = 0;
+  playerReady();
+  // Reset UI
   updateBoardDivs(board);
   counterElm.innerText = counter;
   inputTurns.value = 50;
@@ -270,6 +385,39 @@ function getNewState(currentState, cellRow, cellCol, rules) {
   }
   // Calculate the new state according to the rules of the game
   return rules(currentState, neighborCounter);
+}
+
+function conwaysRules(currentState, neighborCounter) {
+  let newCellState;
+  if (currentState === REVIEWSTATE.INACTIVE) {
+
+    if (neighborCounter.inactive === 5) {
+      // console.log('inactive cell with 3 neighbors');
+      newCellState = REVIEWSTATE.FIVESTARS;
+    } else {
+      // console.log('inactive cell with more or less than 3 neighbors');
+      newCellState = REVIEWSTATE.INACTIVE;
+    }
+
+  } else {
+
+    if (neighborCounter.inactive > 6) {
+      // console.log('review cell with less than 2 neighbors');
+      newCellState = REVIEWSTATE.INACTIVE;
+    }
+    else if (neighborCounter.inactive === 5 || neighborCounter.inactive === 6) {
+      // console.log('review cell with 2 or 3 neighbors');
+      newCellState = REVIEWSTATE.FIVESTARS;
+    }
+    else if (neighborCounter.inactive < 5) {
+      // console.log('review cell with more than 3 neighbors');
+      newCellState = REVIEWSTATE.INACTIVE;
+    }
+    else {
+      console.warn('this should not happen');
+    }
+  }
+  return newCellState;
 }
 
 function trustpilotMultiRules(currentState, neighborCounter) {

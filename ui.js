@@ -16,6 +16,8 @@ const startButton = document.getElementById('start-button');
 const stopButton = document.getElementById('stop-button');
 const continueButton = document.getElementById('continue-button');
 const startOverButton = document.getElementById('start-over-button');
+const readyButtonPlayer1 = document.getElementById('player1-ready');
+const readyButtonPlayer2 = document.getElementById('player2-ready');
 
 const PAGES = {
   HOME: 0,
@@ -34,6 +36,18 @@ function reveal(elements) {
 function hide(elements) {
   elements.forEach((el) => {
     el.style.display = 'none';
+  })
+}
+
+function disable(elements) {
+  elements.forEach((el) => {
+    el.setAttribute('disabled', '');
+  })
+}
+
+function enable(elements) {
+  elements.forEach((el) => {
+    el.removeAttribute('disabled');
   })
 }
 
@@ -65,6 +79,7 @@ function gotoHome() {
 
 function gotoSinglePlayer() {
   resetGame();
+  enableStart();
   currentPage = PAGES.SINGLEPLAYER;
   currentPageElm.innerText = 'Single Player';
   gotoPage(PAGES.SINGLEPLAYER);
@@ -72,6 +87,7 @@ function gotoSinglePlayer() {
 
 function gotoMultiplayer() {
   resetGame();
+  enablePlayer1();
   currentPage = PAGES.MULTIPLAYER;
   currentPageElm.innerText = 'Multiplayer';
   gotoPage(PAGES.MULTIPLAYER);
@@ -79,6 +95,7 @@ function gotoMultiplayer() {
 
 function gotoSandbox() {
   resetGame();
+  enableStart();
   currentPage = PAGES.SANDBOX;
   currentPageElm.innerText = 'Sandbox';
   gotoPage(PAGES.SANDBOX);
@@ -97,4 +114,19 @@ function showStopButton() {
 function showContinueButtons() {
   hide([stopButton]);
   reveal([continueButton, startOverButton]);
+}
+
+function enablePlayer1() {
+  disable([startButton, readyButtonPlayer2]);
+  enable([readyButtonPlayer1]);
+}
+
+function enablePlayer2() {
+  disable([startButton, readyButtonPlayer1]);
+  enable([readyButtonPlayer2]);
+}
+
+function enableStart() {
+  disable([readyButtonPlayer1, readyButtonPlayer2]);
+  enable([startButton]);
 }
