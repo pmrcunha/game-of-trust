@@ -152,7 +152,7 @@ function handleCellClick(event) {
     case RULES.TPSINGLE:
       console.log('tpsingle');
       if (
-        placedStars > availableStars ||
+        placedStars >= availableStars ||
         board[cellPos.x][cellPos.y] === REVIEWSTATE.FIVESTARS
       ) {
         placedStars -= board[cellPos.x][cellPos.y];
@@ -283,7 +283,7 @@ function runGame(turns, rules) {
 
     if (turns && counter >= turns || isGameStopped) {
       window.clearInterval(intervalID);
-      getResults();
+      getResults(board);
       showContinueButtons();
     }
     else {
@@ -509,6 +509,57 @@ function trustpilotSingleRules(currentState, neighborCounter) {
   return newCellState;
 }
 
-function getResults() {
+function getResults(board) {
   console.log('results!');
+
+  let results = {};
+  board.forEach((row) => {
+    row.forEach((cell) => {
+      results[cell] = (results[cell] || 0) + 1;
+    })
+  });
+
+  const result1Star = document.getElementById('result-1star');
+  const result2Stars = document.getElementById('result-2stars');
+  const result3Stars = document.getElementById('result-3stars');
+  const result4Stars = document.getElementById('result-4stars');
+  const result5Stars = document.getElementById('result-5stars');
+
+  let resultElms = [result1Star, result2Stars, result3Stars, result4Stars, result5Stars];
+
+  const resultTrustscore = document.getElementById('result-trustscore');
+
+  resultElms.forEach((el, i) => {
+    // Set the result for each element
+    el.innerText = results[i + 1] || 0;
+    // Hide stars 2 to 4 in multiplayer mode
+    if (currentPage === PAGES.MULTIPLAYER && i > 0 && i < 4) {
+      el.parentElement.style.display = 'none';
+    }
+  });
+
+  let nrStars = 0;
+  let nrReviews = 0;
+  Object.keys(results).forEach((key, index) => {
+    if (key == 0) {
+      return;
+    } else {
+      nrReviews += results[key];
+      nrStars += (results[key] * key);
+    }
+  })
+  let trustscore = nrStars * 2 / nrReviews || 0;
+  resultTrustscore.innerText = Math.round(trustscore * 100) / 100; //rounded to centesims
+
+  if (currentPage === PAGES.MULTIPLAYER) {
+    let winner = document.createElement('h3');
+    if (trustscore > 5) {
+      winner.innerText = 'Player 1 wins!';
+    } else {
+      winner.innerText = 'Player 2 wins!';
+    }
+    panelResults.append(winner);
+  }
+
+  showResults();
 }

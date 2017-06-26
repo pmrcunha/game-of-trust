@@ -304,6 +304,62 @@ with Reviews</h3>
         <button onclick="resetGame();">Reset</button>
       </div>
 
+      <div id="panel-results" class="panel" style="display: none;">
+        <h3>Results</h3>
+
+        <span class="panel__stats">
+          <p><svg width="120px" height="20px" viewBox="0 0 300 48" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+              <use x="0" href="#review-fivestars"/>
+              <use x="60" href="#review-fivestars"/>
+              <use x="120" href="#review-fivestars"/>
+              <use x="180" href="#review-fivestars"/>
+              <use x="240" href="#review-fivestars"/>
+          </svg>:
+        </p><p id="result-5stars" class="panel__value">12</p>
+      </span>
+        <span class="panel__stats">
+          <p><svg width="120px" height="20px" viewBox="0 0 300 48" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+              <use x="0" href="#review-fourstars"/>
+              <use x="60" href="#review-fourstars"/>
+              <use x="120" href="#review-fourstars"/>
+              <use x="180" href="#review-fourstars"/>
+              <use x="240" href="#review-inactive"/>
+          </svg>:
+          </p><p id="result-4stars" class="panel__value">12</p>
+        </span>
+        <span class="panel__stats"><p>
+          <svg width="120px" height="20px" viewBox="0 0 300 48" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+            <use x="0" href="#review-threestars"/>
+            <use x="60" href="#review-threestars"/>
+            <use x="120" href="#review-threestars"/>
+            <use x="180" href="#review-inactive"/>
+            <use x="240" href="#review-inactive"/>
+        </svg>:
+      </p><p id="result-3stars" class="panel__value">12</p>
+    </span>
+        <span class="panel__stats"><p>
+          <svg width="120px" height="20px" viewBox="0 0 300 48" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+            <use x="0" href="#review-twostars"/>
+            <use x="60" href="#review-twostars"/>
+            <use x="120" href="#review-inactive"/>
+            <use x="180" href="#review-inactive"/>
+            <use x="240" href="#review-inactive"/>
+        </svg>:
+      </p><p id="result-2stars" class="panel__value">12</p>
+    </span>
+        <span class="panel__stats"><p>
+          <svg width="120px" height="20px" viewBox="0 0 300 48" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+            <use x="0" href="#review-onestar"/>
+            <use x="60" href="#review-inactive"/>
+            <use x="120" href="#review-inactive"/>
+            <use x="180" href="#review-inactive"/>
+            <use x="240" href="#review-inactive"/>
+        </svg>:
+      </p><p id="result-1star" class="panel__value">12</p>
+    </span>
+        <hr/>
+        <span class="panel__stats"><p>Trustscore:</p><p id="result-trustscore" class="panel__value">9.47</p></span>
+      </div>
     </section>
 
     <div class="authorship">

@@ -40,6 +40,13 @@ h1 {
   text-transform: uppercase;
 }
 
+hr {
+  border: 0;
+    height: 1px;
+    background: #4990E2;
+    background-image: linear-gradient(to right, #A5CBF7, #4990E2, #A5CBF7);
+}
+
 button, select {
   display: block;
   max-width: 300px;

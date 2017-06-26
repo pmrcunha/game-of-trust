@@ -11,6 +11,7 @@ const currentPageElm = document.getElementById('current-page');
 const panelSingle = document.getElementById('panel-single');
 const panelMultiplayer = document.getElementById('panel-multiplayer');
 const panelSandbox = document.getElementById('panel-sandbox');
+const panelResults = document.getElementById('panel-results');
 
 const startButton = document.getElementById('start-button');
 const stopButton = document.getElementById('stop-button');
@@ -129,4 +130,10 @@ function enablePlayer2() {
 function enableStart() {
   disable([readyButtonPlayer1, readyButtonPlayer2]);
   enable([startButton]);
+}
+
+function showResults() {
+  hide([panelSingle, panelMultiplayer]);
+  reveal([panelResults]);
+
 }
