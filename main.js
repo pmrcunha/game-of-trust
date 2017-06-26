@@ -137,16 +137,20 @@ let counter = 0;
 let intervalID;
 let isGameStopped;
 const counterElm = document.getElementById('turn-counter');
+let turns;
+
+const inputTurns = document.getElementById('nr-turns');
+const inputTurnsMulti = document.getElementById('nr-turns-multi');
 
 function startGame() {
   switch (currentPage) {
     case PAGES.SINGLEPLAYER:
-      const turns = Number(document.getElementById('nr-turns').value);
-      runGame(turns, TrustpilotSingleRules);
+      turns = Number(inputTurns.value);
+      runGame(turns, trustpilotSingleRules);
       break;
     case PAGES.MULTIPLAYER:
-      const turnsMulti = Number(document.getElementById('nr-turns-multi').value);
-      runGame(turnsMulti);
+      turns = Number(inputTurnsMulti.value);
+      runGame(turns, trustpilotMultiRules);
       break;
     default:
       runGame();
@@ -154,7 +158,7 @@ function startGame() {
 }
 
 function runGame(turns, rules) {
-  rules = rules || TrustpilotSingleRules;
+  rules = rules || trustpilotSingleRules;
   turns = turns || null; //Allow for a continuous game
   if (turns) {
     turns += counter //increment turns if we are continuing a game
@@ -168,7 +172,7 @@ function runGame(turns, rules) {
     if (turns && counter >= turns || isGameStopped) {
       window.clearInterval(intervalID);
       getResults();
-      showStartButton();
+      showContinueButtons();
     }
     else {
       counter++;
@@ -183,8 +187,14 @@ function runGame(turns, rules) {
 }
 
 function stopGame() {
+  turns = turns || null;
+  if (turns) {
+    inputTurns.value = turns - counter;
+    inputTurnsMulti.value = turns - counter;
+  }
+
   isGameStopped = true;
-  showStartButton();
+  showContinueButtons();
 }
 
 function resetGame() {
@@ -193,6 +203,9 @@ function resetGame() {
   board = createBoardArray(30, 30);
   updateBoardDivs(board);
   counterElm.innerText = counter;
+  inputTurns.value = 50;
+  inputTurnsMulti.value = 50;
+  showStartButton();
 }
 
 function nextGeneration(board, rules) {
@@ -259,7 +272,46 @@ function getNewState(currentState, cellRow, cellCol, rules) {
   return rules(currentState, neighborCounter);
 }
 
-function TrustpilotSingleRules(currentState, neighborCounter) {
+function trustpilotMultiRules(currentState, neighborCounter) {
+  let newCellState;
+  if (currentState === REVIEWSTATE.INACTIVE) {
+
+    if (neighborCounter.inactive === 5) {
+      // console.log('inactive cell with 3 neighbors');
+
+      if (neighborCounter.onestar >= 2) {
+        newCellState = REVIEWSTATE.ONESTAR;
+      } else {
+        newCellState = REVIEWSTATE.FIVESTARS;
+      }
+
+    } else {
+      // console.log('inactive cell with more or less than 3 neighbors');
+      newCellState = REVIEWSTATE.INACTIVE;
+    }
+
+  } else {
+
+    if (neighborCounter.inactive > 6) {
+      // console.log('review cell with less than 2 neighbors');
+      newCellState = REVIEWSTATE.INACTIVE;
+    }
+    else if (neighborCounter.inactive === 5 || neighborCounter.inactive === 6) {
+      // console.log('review cell with 2 or 3 neighbors');
+      newCellState = currentState;
+    }
+    else if (neighborCounter.inactive < 5) {
+      // console.log('review cell with more than 3 neighbors');
+      newCellState = REVIEWSTATE.INACTIVE;
+    }
+    else {
+      console.warn('this should not happen');
+    }
+  }
+  return newCellState;
+}
+
+function trustpilotSingleRules(currentState, neighborCounter) {
   let newCellState;
   if (currentState === REVIEWSTATE.INACTIVE) {
 

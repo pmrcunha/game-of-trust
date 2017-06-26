@@ -14,6 +14,8 @@ const panelSandbox = document.getElementById('panel-sandbox');
 
 const startButton = document.getElementById('start-button');
 const stopButton = document.getElementById('stop-button');
+const continueButton = document.getElementById('continue-button');
+const startOverButton = document.getElementById('start-over-button');
 
 const PAGES = {
   HOME: 0,
@@ -62,29 +64,37 @@ function gotoHome() {
 }
 
 function gotoSinglePlayer() {
+  resetGame();
   currentPage = PAGES.SINGLEPLAYER;
   currentPageElm.innerText = 'Single Player';
   gotoPage(PAGES.SINGLEPLAYER);
 }
 
 function gotoMultiplayer() {
+  resetGame();
   currentPage = PAGES.MULTIPLAYER;
   currentPageElm.innerText = 'Multiplayer';
   gotoPage(PAGES.MULTIPLAYER);
 }
 
 function gotoSandbox() {
+  resetGame();
   currentPage = PAGES.SANDBOX;
   currentPageElm.innerText = 'Sandbox';
   gotoPage(PAGES.SANDBOX);
 }
 
 function showStartButton() {
-  hide([stopButton]);
+  hide([stopButton, continueButton, startOverButton]);
   reveal([startButton]);
 }
 
 function showStopButton() {
-  hide([startButton]);
+  hide([startButton, continueButton, startOverButton]);
   reveal([stopButton]);
+}
+
+function showContinueButtons() {
+  hide([stopButton]);
+  reveal([continueButton, startOverButton]);
 }

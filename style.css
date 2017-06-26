@@ -72,6 +72,9 @@ button.stop-button {
 button.stop-button:hover {
   box-shadow: 2px 2px 5px 0 rgba(208,2,27,1);
 }
+button.inline-button {
+  display: inline-block;
+}
 
 input {
   width: 50px;
@@ -174,8 +177,9 @@ header {
 .game__controls {
   position: relative;
   margin: 0 50px;
+  text-align: center;
 }
-.game__buttons > button {
+.game__buttons button {
   margin: 0 auto 25px;
   max-width: 200px;
   height: 45px;
