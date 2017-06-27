@@ -214,15 +214,15 @@
 with Reviews</h3>
       <p class="home__lead-text">In 1970, John Conway created the <a target="_blank" href="https://en.wikipedia.org/wiki/Conway%27s_Game_of_Life">Game of Life</a>. It was an implementation of a celullar automaton and showed that very simple rules can create very complex behaviors.<br/><br/>The "game" is a zero-player game, meaning that its evolution is determined by its initial state, requiring no further input. One interacts with the Game of Life by creating an initial configuration and observing how it evolves, or, for advanced "players", by creating patterns with particular properties.<br/><br/>I made an adaptation of this using review stars as states. In my version, each cell can have 6 states. Try it out!</p>
       <div class="home__buttons">
-        <button onclick="gotoSinglePlayer();">Single Player</button>
-        <button onclick="gotoMultiplayer();">Multiplayer</button>
-        <button onclick="gotoSandbox();">Patterns &#47; Sandbox</button>
+        <button onclick="gameUI.gotoSinglePlayer();">Single Player</button>
+        <button onclick="gameUI.gotoMultiplayer();">Multiplayer</button>
+        <button onclick="gameUI.gotoSandbox();">Patterns &#47; Sandbox</button>
       </div>
     </section>
 
     <header id="header" class="animated fadeInhidden" style="display: none;">
       <span class="breadcrumbs">
-        <a onclick="gotoHome();">Home</a>
+        <a onclick="gameUI.gotoHome();">Home</a>
          &#62;
          <span id="current-page" class="breadcrumbs__current"></span>
        </span>
@@ -237,10 +237,10 @@ with Reviews</h3>
         <div class="game__controls">
           <h3 id="turn-counter" class="game__counter">0</h3>
           <div class="game__buttons">
-            <button id="start-button" onclick="startGame();">Start</button>
-            <button id="stop-button" onclick="stopGame();" class="stop-button" style="display: none;">Stop</button>
-            <span><button id="continue-button" onclick="startGame();" class="inline-button" style="display: none;">Continue</button>
-            <button id="start-over-button" onclick="resetGame();" class="inline-button" style="display: none;">Play Again</button></span>
+            <button id="start-button" onclick="game.startGame();">Start</button>
+            <button id="stop-button" onclick="game.stopGame();" class="stop-button" style="display: none;">Stop</button>
+            <span><button id="continue-button" onclick="game.startGame();" class="inline-button" style="display: none;">Continue</button>
+            <button id="start-over-button" onclick="game.resetGame();" class="inline-button" style="display: none;">Play Again</button></span>
           </div>
         </div>
       </div>
@@ -257,11 +257,11 @@ with Reviews</h3>
         <h3>Player 1</h3>
         <span class="panel__stats"><p>Stars left to place:</p><p id="p1-stars-left" class="panel__value">12</p></span>
         <span class="panel__stats"><p>Placed:</p><p id="p1-stars-used" class="panel__value">0</p></span>
-        <button id="player1-ready" onclick="playerReady();">Ready</button>
+        <button id="player1-ready" onclick="game.playerReady();">Ready</button>
         <h3>Player 2</h3>
         <span class="panel__stats"><p>Stars left to place:</p><p id="p2-stars-left" class="panel__value">12</p></span>
         <span class="panel__stats"><p>Placed:</p><p id="p2-stars-used" class="panel__value">0</p></span>
-        <button id="player2-ready" disabled onclick="playerReady();">Ready</button>
+        <button id="player2-ready" disabled onclick="game.playerReady();">Ready</button>
         <span class="panel__turns-input"><label for="nr-turns-multi">Number of turns:</label><input id="nr-turns-multi" type="number" value="50"/></span>
       </div>
       <div id="panel-sandbox" class="panel">
@@ -301,7 +301,7 @@ with Reviews</h3>
             <small class="panel__label">Conway's rules</small>
           </div>
         </a>
-        <button onclick="resetGame();">Reset</button>
+        <button onclick="game.resetGame();">Reset</button>
       </div>
 
       <div id="panel-results" class="panel" style="display: none;">
@@ -365,7 +365,6 @@ with Reviews</h3>
     <div class="authorship">
       <small>Designed and built by <a target="_blank" href="https://github.com/pmrcunha">@pmrcunha</a></small>
     </div>
-    <script src="./ui.js"></script>
     <script src="./main.js"></script>
   </body>
 </html>
