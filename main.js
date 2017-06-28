@@ -63,10 +63,13 @@ const startButton = document.getElementById('start-button');
 const stopButton = document.getElementById('stop-button');
 const continueButton = document.getElementById('continue-button');
 const startOverButton = document.getElementById('start-over-button');
+const resetButton = document.getElementById('reset-button');
 const readyButtonPlayer1 = document.getElementById('player1-ready');
 const readyButtonPlayer2 = document.getElementById('player2-ready');
 
 //Game
+const dropdownRules = document.getElementById('dropdown-rules');
+
 const singleStarsLeftElm = document.getElementById('single-stars-left');
 const singleStarsUsedElm = document.getElementById('single-stars-used');
 
@@ -83,6 +86,96 @@ const inputTurnsMulti = document.getElementById('nr-turns-multi');
 // Available stars for each player to place in the start of the game
 const availableStars = 25;
 const availableStarsMultiplayer = 12;
+
+const examples = {
+  exploder: {
+    array: [
+      [5,1,5],
+      [1,2,1],
+      [5,1,5]
+    ],
+    rules: RULES.TPSINGLE
+  },
+  christmasTree: {
+    array: [
+      [0,0,0,0,0,0,3,0,0,0,0,0,0],
+      [0,0,0,0,0,3,0,3,0,0,0,0,0],
+      [0,0,0,0,0,0,3,0,0,0,0,0,0],
+      [0,0,0,0,0,0,0,0,0,0,0,0,0],
+      [0,0,0,0,0,0,5,0,0,0,0,0,0],
+      [0,0,0,0,0,0,5,0,0,0,0,0,0],
+      [0,0,0,0,0,0,5,0,0,0,0,0,0],
+      [0,0,0,5,0,0,0,0,0,5,0,0,0],
+      [0,0,0,5,0,0,0,0,0,5,0,0,0],
+      [0,0,0,5,0,0,0,0,0,5,0,0,0],
+      [5,0,0,0,0,0,5,0,0,0,0,0,5],
+      [5,0,0,0,0,0,5,0,0,0,0,0,5],
+      [5,0,0,0,0,0,5,0,0,0,0,0,5]
+    ],
+    rules: RULES.TPSINGLE
+  },
+  pentadecathlon: {
+    array: [
+      [0,5,0],
+      [0,5,0],
+      [5,0,5],
+      [0,5,0],
+      [0,5,0],
+      [0,5,0],
+      [0,5,0],
+      [5,0,5],
+      [0,5,0],
+      [0,5,0]
+    ],
+    rules: RULES.CONWAY
+  },
+  pulsar: {
+    array: [
+      [0,0,5,5,5,0,0,0,5,5,5,0,0],
+      [0,0,0,0,0,0,0,0,0,0,0,0,0],
+      [5,0,0,0,0,5,0,5,0,0,0,0,5],
+      [5,0,0,0,0,5,0,5,0,0,0,0,5],
+      [5,0,0,0,0,5,0,5,0,0,0,0,5],
+      [0,0,5,5,5,0,0,0,5,5,5,0,0],
+      [0,0,0,0,0,0,0,0,0,0,0,0,0],
+      [0,0,5,5,5,0,0,0,5,5,5,0,0],
+      [5,0,0,0,0,5,0,5,0,0,0,0,5],
+      [5,0,0,0,0,5,0,5,0,0,0,0,5],
+      [5,0,0,0,0,5,0,5,0,0,0,0,5],
+      [0,0,0,0,0,0,0,0,0,0,0,0,0],
+      [0,0,5,5,5,0,0,0,5,5,5,0,0]
+    ],
+    rules: RULES.CONWAY
+  },
+  gosperGliderGun: {
+    array: [
+      [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,5,0,0,0,0,0,0,0,0,0,0,0],
+      [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,5,0,5,0,0,0,0,0,0,0,0,0,0,0],
+      [0,0,0,0,0,0,0,0,0,0,0,0,5,5,0,0,0,0,0,0,5,5,0,0,0,0,0,0,0,0,0,0,0,0,5,5],
+      [0,0,0,0,0,0,0,0,0,0,0,5,0,0,0,5,0,0,0,0,5,5,0,0,0,0,0,0,0,0,0,0,0,0,5,5],
+      [5,5,0,0,0,0,0,0,0,0,5,0,0,0,0,0,5,0,0,0,5,5,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
+      [5,5,0,0,0,0,0,0,0,0,5,0,0,0,5,0,5,5,0,0,0,0,5,0,5,0,0,0,0,0,0,0,0,0,0,0],
+      [0,0,0,0,0,0,0,0,0,0,5,0,0,0,0,0,5,0,0,0,0,0,0,0,5,0,0,0,0,0,0,0,0,0,0,0],
+      [0,0,0,0,0,0,0,0,0,0,0,5,0,0,0,5,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
+      [0,0,0,0,0,0,0,0,0,0,0,0,5,5,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]
+    ],
+    rules: RULES.CONWAY
+  },
+  blinker: {
+    array: [
+      [0,0,0,0,5,0,0,0,0],
+      [0,0,0,0,5,0,0,0,0],
+      [0,0,0,0,5,0,0,0,0],
+      [0,0,0,0,0,0,0,0,0],
+      [5,5,5,0,0,0,5,5,5],
+      [0,0,0,0,0,0,0,0,0],
+      [0,0,0,0,5,0,0,0,0],
+      [0,0,0,0,5,0,0,0,0],
+      [0,0,0,0,5,0,0,0,0]
+    ],
+    rules: RULES.CONWAY
+  }
+}
 
 function conwaysRules(currentState, neighborCounter) {
   let newCellState;
@@ -206,16 +299,19 @@ function trustpilotSingleRules(currentState, neighborCounter) {
   return newCellState;
 }
 
-
 class GameOfTrust {
   constructor(boardWidth, boardHeight) {
+    this.boardWidth = boardWidth;
+    this.boardHeight = boardHeight;
+    // this.setSize();
     // Create the board array
     this.board = GameOfTrust.createBoardArray(boardWidth, boardHeight);
-    this.boardDivs = []; // Array with the SVG elements of the board
+    this.boardDivs = []; // Array with the div elements of the board
 
     // Get the container element
     let boardElm = document.getElementById('board');
 
+    this.handleCellClick = this.handleCellClick.bind(this);
     // Create the review cells from the array
     // and add them to an elements array, so that they are easier to access
     this.board.forEach(
@@ -247,7 +343,8 @@ class GameOfTrust {
           //
           rowElm.append(cellElm);
           rowDivs.push(cellElm);
-          cellElm.addEventListener('mousedown', this.handleCellClick.bind(this));
+
+          cellElm.addEventListener('mousedown', this.handleCellClick);
         })
         this.boardDivs.push(rowDivs);
       }
@@ -269,6 +366,13 @@ class GameOfTrust {
         break;
       default:
         this.turns = null;
+    }
+    // Remove event listeners so that the user can't change their initial input
+    this.removeEventListeners();
+
+    // Remove previous 'winner' elements if there are any
+    if (this.winner) {
+      this.winner.remove();
     }
     //
     this.runGame(this.turns, RULES.functions[GameOfTrust.getRules()]);
@@ -301,10 +405,10 @@ class GameOfTrust {
     }, 500);
 
     gameUI.showStopButton();
+    gameUI.showPanel();
   }
 
   stopGame() {
-    // this.turns = this.turns || null;
     if (this.turns) {
       inputTurns.value = this.turns - this.counter;
       inputTurnsMulti.value = this.turns - this.counter;
@@ -312,24 +416,41 @@ class GameOfTrust {
 
     this.isGameStopped = true;
     gameUI.showContinueButtons();
-    this.getResults(this.board);
   }
 
   resetGame() {
     this.counter = 0;
     this.isGameStopped = false;
-    this.board = GameOfTrust.createBoardArray(30, 30);
+    this.board = GameOfTrust.createBoardArray(this.boardWidth, this.boardHeight);
     this.currentPlayer = 0;
     this.playerReady();
+
     // Reset UI
+    // Update the game board for the new, empty board array
     GameOfTrust.updateBoardDivs(this.board, this.boardDivs);
+    this.addEventListeners();
+    // re-start the counter
     counterElm.innerText = this.counter;
+    // reset the input fields to their defaults
     inputTurns.value = 50;
     inputTurnsMulti.value = 50;
+
+    if (this.winner) {
+      console.log(this.winner);
+      this.winner.remove();
+    }
+    // re-enable start button
+    if (gameUI.currentPage !== PAGES.MULTIPLAYER) {
+      gameUI.enableStart();
+    }
     gameUI.showStartButton();
+    gameUI.showPanel();
   }
 
   getResults(board) {
+    if (gameUI.currentPage === PAGES.SANDBOX) {
+      return;
+    }
     // Calculate the game results from the current board
 
     // Count how many instances of each state there are in the board
@@ -375,13 +496,13 @@ class GameOfTrust {
 
     // If it is a multiplayer game, tell which player won
     if (gameUI.currentPage === PAGES.MULTIPLAYER) {
-      let winner = document.createElement('h3');
+      this.winner = document.createElement('h3');
       if (trustscore > 5) {
-        winner.innerText = 'Player 1 wins!';
+        this.winner.innerText = 'Player 1 wins!';
       } else {
-        winner.innerText = 'Player 2 wins!';
+        this.winner.innerText = 'Player 2 wins!';
       }
-      panelResults.append(winner);
+      panelResults.append(this.winner);
     }
 
     gameUI.showResults();
@@ -416,6 +537,7 @@ class GameOfTrust {
         // Input restrictions for a game following Trustpilot single player rules
 
         if (
+          gameUI.currentPage !== PAGES.SANDBOX &&
           this.placedStars >= availableStars ||
           this.board[cellPos.x][cellPos.y] === REVIEWSTATE.FIVESTARS
         ) {
@@ -476,6 +598,34 @@ class GameOfTrust {
     symbolsArray[this.board[cellPos.x][cellPos.y]](iconUseSVG);
   }
 
+  addEventListeners() {
+    this.boardDivs.forEach((row) => {
+      row.forEach((cell) => {
+        cell.addEventListener('mousedown', this.handleCellClick);
+      })
+    })
+  }
+
+  removeEventListeners() {
+    this.boardDivs.forEach((row) => {
+      row.forEach((cell) => {
+        cell.removeEventListener('mousedown', this.handleCellClick);
+      })
+    })
+  }
+
+  createExample(example) {
+    // Set an example array on the board
+
+    // Set the dropdown to the right kind of rules
+    dropdownRules.value = example.rules;
+    // Create empty board
+    let emptyBoard = GameOfTrust.createBoardArray(this.boardWidth, this.boardHeight);
+    // Center the array
+    this.board = GameOfTrust.centerArray(emptyBoard, example.array);
+    GameOfTrust.updateBoardDivs(this.board, this.boardDivs);
+  }
+
   static createBoardArray(boardWidth, boardHeight) {
     // Creates a matrix to track the state of each board cell
 
@@ -492,8 +642,6 @@ class GameOfTrust {
 
   static getRules() {
     // Returns which rules should be applied for the current game
-
-    const dropdownRules = document.getElementById('dropdown-rules');
 
     switch (gameUI.currentPage) {
       case PAGES.SINGLEPLAYER:
@@ -601,6 +749,42 @@ class GameOfTrust {
     return rules(currentState, neighborCounter);
   }
 
+  static centerArray(bigArr, smallArr) {
+    // Places an [NxN] array in the center of another one
+
+    if (smallArr.length > bigArr.length || smallArr[0].length > bigArr[0].length) {
+      throw('You provided an array that is larger than the one that is supposed to contain it.')
+    } else {
+      // Get the half width (HW) and half height (HH) of both arrays
+      let bigArrHW = Math.floor(bigArr[0].length / 2);
+      let bigArrHH = Math.floor(bigArr.length / 2);
+      let smallArrHW = Math.floor(smallArr[0].length / 2);
+      let smallArrHH = Math.floor(smallArr.length / 2);
+
+      smallArr.forEach((row, i) => {
+        row.forEach((cell, j) => {
+          bigArr[bigArrHH - smallArrHH + i][bigArrHW - smallArrHW + j] = smallArr[i][j];
+        })
+      });
+
+      return bigArr;
+    }
+  }
+
+  // setSize() {
+  //   // const board = document.getElementById('board');
+  //   if (window.innerWidth < 1024) {
+  //     this.boardWidth = Math.floor(Number(window.innerWidth) / 20);
+  //   } else {
+  //     this.boardWidth = Math.floor(Number(window.innerWidth * 0.7) / 20);
+  //   }
+  //
+  //   this.boardHeight = Math.floor(Number(window.innerHeight) / 20);
+  //   board.style.width = (this.boardWidth * 20) + 'px';
+  //   board.style.height = (this.boardHeight * 20) + 'px';
+  //
+  // }
+
 }
 
 class UserInterface {
@@ -640,16 +824,19 @@ class UserInterface {
   showStartButton() {
     UserInterface.hide([stopButton, continueButton, startOverButton]);
     UserInterface.reveal([startButton]);
+    UserInterface.enable([resetButton]);
   }
 
   showStopButton() {
     UserInterface.hide([startButton, continueButton, startOverButton]);
     UserInterface.reveal([stopButton]);
+    UserInterface.disable([resetButton]);
   }
 
   showContinueButtons() {
     UserInterface.hide([stopButton]);
     UserInterface.reveal([continueButton, startOverButton]);
+    UserInterface.enable([resetButton]);
   }
 
   enablePlayer1() {
@@ -670,6 +857,21 @@ class UserInterface {
   showResults() {
     UserInterface.hide([panelSingle, panelMultiplayer]);
     UserInterface.reveal([panelResults]);
+  }
+
+  showPanel() {
+    UserInterface.hide([panelResults, panelSingle, panelMultiplayer, panelSandbox]);
+    switch (this.currentPage) {
+      case PAGES.SINGLEPLAYER:
+        UserInterface.reveal([panelSingle]);
+        break;
+      case PAGES.MULTIPLAYER:
+        UserInterface.reveal([panelMultiplayer]);
+        break;
+      case PAGES.SANDBOX:
+        UserInterface.reveal([panelSandbox]);
+        break;
+    }
   }
 
   static gotoPage(page) {

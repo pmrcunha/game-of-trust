@@ -268,40 +268,40 @@ with Reviews</h3>
         <label for="dropdown-rules">Rules</label>
         <select id="dropdown-rules">
           <option default value=0>Trustpilot Single</option>
-          <option value=1>Trustpilot Multiplayer</option>
+          <option disabled value=1>Trustpilot Multiplayer</option>
           <option value=2>Conway's rules</option>
         </select>
         <a href="#">
-          <div class="panel__item">
+          <div class="panel__item" onclick="game.createExample(examples.exploder);">
             <p class="panel__link">Exploder</p>
             <small class="panel__label">Trustpilot rules</small>
           </div>
         </a>
         <a href="#">
-          <div class="panel__item">
+          <div class="panel__item" onclick="game.createExample(examples.christmasTree);">
             <p class="panel__link">Christmas Tree</p>
             <small class="panel__label">Trustpilot rules</small>
           </div>
         </a>
         <a href="#">
-          <div class="panel__item">
-            <p class="panel__link">Glider</p>
+          <div class="panel__item" onclick="game.createExample(examples.pulsar);">
+            <p class="panel__link">Pulsar</p>
             <small class="panel__label">Conway's rules</small>
           </div>
         </a>
         <a href="#">
-          <div class="panel__item">
-            <p class="panel__link">Spaceship</p>
+          <div class="panel__item" onclick="game.createExample(examples.pentadecathlon);">
+            <p class="panel__link">Pentadecathlon</p>
             <small class="panel__label">Conway's rules</small>
           </div>
         </a>
         <a href="#">
-          <div class="panel__item">
+          <div class="panel__item" onclick="game.createExample(examples.blinker);">
             <p class="panel__link">Blinker</p>
             <small class="panel__label">Conway's rules</small>
           </div>
         </a>
-        <button onclick="game.resetGame();">Reset</button>
+        <button id="reset-button" onclick="game.resetGame();">Reset</button>
       </div>
 
       <div id="panel-results" class="panel" style="display: none;">
