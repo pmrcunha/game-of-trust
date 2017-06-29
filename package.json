@@ -10,7 +10,7 @@
   "author": "Paulo Cunha <paulomrcunha@gmail.com>",
   "license": "Copyright Paulo Cunha",
   "scripts": {
-    "build": "sass ./styles/main.sass ./styles/styles.css",
+    "build": "yarn && sass ./styles/main.sass ./styles/styles.css",
     "start": "yarn build && yarn open",
     "open": "concurrently \"http-server -a localhost -p 9000\" \"open http://localhost:9000/\""
   },
