@@ -1,0 +1,236 @@
+html, body {
+  width: 100%;
+  height: 100%;
+  margin: 0; }
+
+* {
+  font-family: "Helvetica Neue", Arial, Helvetica, sans-serif; }
+
+a {
+  text-decoration: none;
+  font-weight: 400; }
+  a:visited {
+    color: #4990E2; }
+
+p, span, label {
+  font-size: 18px;
+  font-weight: 100;
+  color: #4990E2;
+  letter-spacing: 1.91px;
+  max-width: 580px; }
+
+h3 {
+  font-size: 24px;
+  font-weight: 100;
+  color: #A5CBF7;
+  letter-spacing: 2px; }
+
+h1 {
+  font-size: 35px;
+  font-weight: 100;
+  color: #4990E2;
+  letter-spacing: 4.89px;
+  text-transform: uppercase; }
+
+hr {
+  border: 0;
+  height: 1px;
+  background: #4990E2;
+  background-image: linear-gradient(to right, #A5CBF7, #4990E2, #A5CBF7); }
+
+select {
+  font: 16px "Helvetica Neue"; }
+
+button, select {
+  display: block;
+  max-width: 300px;
+  width: 100%;
+  height: 60px;
+  margin: 0 0 35px;
+  box-shadow: 2px 2px 5px 0 rgba(74, 144, 226, 0.3);
+  font-size: 16px;
+  font-weight: 500;
+  color: #4990E2;
+  letter-spacing: 3.3px;
+  background: #EAF1F8;
+  border: 2px solid #4990E2;
+  border-radius: 15px;
+  cursor: pointer; }
+
+button:hover {
+  box-shadow: 2px 2px 5px 0 #4990E2; }
+button.stop-button {
+  color: #D0011B;
+  background: #FFEDEF;
+  border: 2px solid #D0011B;
+  box-shadow: 2px 2px 5px 0 rgba(208, 2, 27, 0.25); }
+button.stop-button:hover {
+  box-shadow: 2px 2px 5px 0 #D0011B; }
+button.inline-button {
+  display: inline-block; }
+button[disabled] {
+  color: #A5CBF7;
+  border: 2px solid #A5CBF7;
+  cursor: default; }
+button[disabled]:hover {
+  box-shadow: 2px 2px 5px 0 rgba(74, 144, 226, 0.3); }
+
+input {
+  width: 50px;
+  height: 50px;
+  background: #fff;
+  border: 2px solid #4990E2;
+  border-radius: 5px;
+  color: #4990E2;
+  font-size: 20px;
+  text-align: center;
+  vertical-align: middle; }
+
+.header {
+  position: relative;
+  margin: 40px 50px 70px; }
+  .header__logo {
+    position: absolute;
+    right: 0; }
+
+.breadcrumbs > a {
+  font-weight: 200;
+  cursor: pointer; }
+.breadcrumbs__current {
+  font-weight: 500; }
+
+.logo-center {
+  position: relative;
+  left: 50%;
+  transform: translateX(-50%);
+  margin: 70px 0 25px; }
+
+.authorship {
+  position: relative;
+  width: 100%;
+  height: 60px;
+  bottom: 15px;
+  left: 50%;
+  transform: translateX(-50%); }
+  .authorship > small {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 14px;
+    color: #4990E2;
+    letter-spacing: 1.5px;
+    text-align: center; }
+
+.home__title {
+  text-align: center;
+  margin: 0 0 20px; }
+.home__subtitle {
+  text-align: center;
+  margin: 0 0 70px; }
+.home__lead-text {
+  position: relative;
+  left: 50%;
+  transform: translateX(-50%);
+  text-align: center; }
+.home__buttons {
+  width: 300px;
+  position: relative;
+  left: 50%;
+  transform: translateX(-50%);
+  margin: 125px 0; }
+
+.content {
+  position: relative;
+  width: 100%;
+  max-width: 1024px;
+  margin: auto;
+  display: flex;
+  flex-wrap: wrap; }
+
+/* Board */
+.game__controls {
+  position: relative;
+  margin: 0 50px;
+  text-align: center; }
+.game__buttons button {
+  margin: 0 auto 25px;
+  max-width: 200px;
+  height: 45px; }
+.game__counter {
+  width: 100%;
+  text-align: right; }
+.game__board {
+  margin: 0 50px 0;
+  display: inline-block;
+  background: #EAF1F8;
+  width: 600px;
+  height: 600px; }
+
+.cell {
+  display: inline-block;
+  width: 20px;
+  height: 20px;
+  margin: 0; }
+
+.row {
+  width: 100%;
+  height: 20px;
+  margin: 0; }
+
+.panel {
+  width: 25%;
+  max-width: 300px; }
+  .panel label {
+    display: block;
+    text-align: left;
+    margin: 0 0 5px; }
+  .panel__description {
+    margin: 0 0 60px;
+    text-align: center; }
+  .panel__stats {
+    position: relative;
+    text-align: left;
+    display: block; }
+  .panel__stats p {
+    display: inline;
+    line-height: 30px; }
+  .panel__value {
+    text-align: right;
+    position: absolute;
+    right: 0;
+    margin: 0; }
+  .panel__turns-input {
+    height: 50px;
+    position: relative;
+    text-align: left;
+    display: block;
+    margin: 25px 0 0; }
+  .panel__turns-input > label {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    text-align: left; }
+  .panel__turns-input > input {
+    position: absolute;
+    right: 0; }
+  .panel__item {
+    margin: 0 0 45px;
+    text-decoration: none; }
+  .panel__item p {
+    font-size: 20px;
+    font-weight: 500;
+    color: #4990E2;
+    letter-spacing: 3.3px;
+    line-height: 30px;
+    text-align: center;
+    margin: 0 0 5px; }
+  .panel__item small {
+    display: block;
+    font-size: 14px;
+    font-weight: 100;
+    color: #4990E2;
+    letter-spacing: 3.3px;
+    text-align: center; }
+
+/*# sourceMappingURL=styles.css.map */
