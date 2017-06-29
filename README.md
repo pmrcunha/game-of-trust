@@ -1,6 +1,8 @@
 # Conway's Game of Trust
 ## A Trustpilot flavored version of Conway's Game of Life
 
+![screenshot](./assets/screenshot.png "Screenshot")
+
 In 1970, John Conway created the [Game of Life](https://en.wikipedia.org/wiki/Conway%27s_Game_of_Life). It was an implementation of a celullar automaton and showed that very simple rules can create very complex behaviors. The "game" is a zero-player game, meaning that its evolution is determined by its initial state, requiring no further input. One interacts with the Game of Life by creating an initial configuration and observing how it evolves, or, for advanced "players", by creating patterns with particular properties. I made an adaptation of this using review stars as states. In my version, each cell can have 6 states. Try it out!
 
 ### How to use
