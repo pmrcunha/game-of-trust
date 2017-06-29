@@ -1,3 +1,4 @@
+//Game
 
 // Enums
 const REVIEWSTATE = {
@@ -19,73 +20,6 @@ const RULES = {
     2: conwaysRules
   }
 }
-
-const PAGES = {
-  HOME: 0,
-  SINGLEPLAYER: 1,
-  MULTIPLAYER: 2,
-  SANDBOX: 3
-}
-
-// Globals
-
-// List of functions that set SVG links to the right icon
-const symbolsArray = [
-  (use) => {use.setAttributeNS(xlinkns, "href", "#review-inactive");},
-  (use) => {use.setAttributeNS(xlinkns, "href", "#review-onestar");},
-  (use) => {use.setAttributeNS(xlinkns, "href", "#review-twostars");},
-  (use) => {use.setAttributeNS(xlinkns, "href", "#review-threestars");},
-  (use) => {use.setAttributeNS(xlinkns, "href", "#review-fourstars");},
-  (use) => {use.setAttributeNS(xlinkns, "href", "#review-fivestars");}
-];
-
-// SVG namespaces
-const  svgns = "http://www.w3.org/2000/svg";
-const  xlinkns = "http://www.w3.org/1999/xlink";
-
-// DOM Elements
-//UI
-const home = document.getElementById('home');
-const singlePlayer = document.getElementById('single-player');
-const multiplayer = document.getElementById('multiplayer');
-const sandbox = document.getElementById('sandbox');
-
-const header = document.getElementById('header');
-const content = document.getElementById('content');
-const currentPageElm = document.getElementById('current-page');
-
-const panelSingle = document.getElementById('panel-single');
-const panelMultiplayer = document.getElementById('panel-multiplayer');
-const panelSandbox = document.getElementById('panel-sandbox');
-const panelResults = document.getElementById('panel-results');
-
-const startButton = document.getElementById('start-button');
-const stopButton = document.getElementById('stop-button');
-const continueButton = document.getElementById('continue-button');
-const startOverButton = document.getElementById('start-over-button');
-const resetButton = document.getElementById('reset-button');
-const readyButtonPlayer1 = document.getElementById('player1-ready');
-const readyButtonPlayer2 = document.getElementById('player2-ready');
-
-//Game
-const dropdownRules = document.getElementById('dropdown-rules');
-
-const singleStarsLeftElm = document.getElementById('single-stars-left');
-const singleStarsUsedElm = document.getElementById('single-stars-used');
-
-const p1StarsLeftElm = document.getElementById('p1-stars-left');
-const p1StarsUsedElm = document.getElementById('p1-stars-used');
-
-const p2StarsLeftElm = document.getElementById('p2-stars-left');
-const p2StarsUsedElm = document.getElementById('p2-stars-used');
-
-const counterElm = document.getElementById('turn-counter');
-const inputTurns = document.getElementById('nr-turns');
-const inputTurnsMulti = document.getElementById('nr-turns-multi');
-
-// Available stars for each player to place in the start of the game
-const availableStars = 25;
-const availableStarsMultiplayer = 12;
 
 const examples = {
   exploder: {
@@ -177,133 +111,46 @@ const examples = {
   }
 }
 
-function conwaysRules(currentState, neighborCounter) {
-  let newCellState;
-  if (currentState === REVIEWSTATE.INACTIVE) {
 
-    if (neighborCounter.inactive === 5) {
-      // console.log('inactive cell with 3 neighbors');
-      newCellState = REVIEWSTATE.FIVESTARS;
-    } else {
-      // console.log('inactive cell with more or less than 3 neighbors');
-      newCellState = REVIEWSTATE.INACTIVE;
-    }
+// DOM Elements
+const dropdownRules = document.getElementById('dropdown-rules');
 
-  } else {
+const singleStarsLeftElm = document.getElementById('single-stars-left');
+const singleStarsUsedElm = document.getElementById('single-stars-used');
 
-    if (neighborCounter.inactive > 6) {
-      // console.log('review cell with less than 2 neighbors');
-      newCellState = REVIEWSTATE.INACTIVE;
-    }
-    else if (neighborCounter.inactive === 5 || neighborCounter.inactive === 6) {
-      // console.log('review cell with 2 or 3 neighbors');
-      newCellState = REVIEWSTATE.FIVESTARS;
-    }
-    else if (neighborCounter.inactive < 5) {
-      // console.log('review cell with more than 3 neighbors');
-      newCellState = REVIEWSTATE.INACTIVE;
-    }
-    else {
-      console.warn('this should not happen');
-    }
-  }
-  return newCellState;
-}
+const p1StarsLeftElm = document.getElementById('p1-stars-left');
+const p1StarsUsedElm = document.getElementById('p1-stars-used');
 
-function trustpilotMultiRules(currentState, neighborCounter) {
-  let newCellState;
-  if (currentState === REVIEWSTATE.INACTIVE) {
+const p2StarsLeftElm = document.getElementById('p2-stars-left');
+const p2StarsUsedElm = document.getElementById('p2-stars-used');
 
-    if (neighborCounter.inactive === 5) {
-      // console.log('inactive cell with 3 neighbors');
+const counterElm = document.getElementById('turn-counter');
+const inputTurns = document.getElementById('nr-turns');
+const inputTurnsMulti = document.getElementById('nr-turns-multi');
 
-      if (neighborCounter.onestar >= 2) {
-        newCellState = REVIEWSTATE.ONESTAR;
-      } else {
-        newCellState = REVIEWSTATE.FIVESTARS;
-      }
+// Available stars for each player to place in the start of the game
+const availableStars = 25;
+const availableStarsMultiplayer = 12;
 
-    } else {
-      // console.log('inactive cell with more or less than 3 neighbors');
-      newCellState = REVIEWSTATE.INACTIVE;
-    }
+// List of functions that set SVG links to the right icon
+const symbolsArray = [
+  (use) => {use.setAttributeNS(xlinkns, "href", "#review-inactive");},
+  (use) => {use.setAttributeNS(xlinkns, "href", "#review-onestar");},
+  (use) => {use.setAttributeNS(xlinkns, "href", "#review-twostars");},
+  (use) => {use.setAttributeNS(xlinkns, "href", "#review-threestars");},
+  (use) => {use.setAttributeNS(xlinkns, "href", "#review-fourstars");},
+  (use) => {use.setAttributeNS(xlinkns, "href", "#review-fivestars");}
+];
 
-  } else {
-
-    if (neighborCounter.inactive > 6) {
-      // console.log('review cell with less than 2 neighbors');
-      newCellState = REVIEWSTATE.INACTIVE;
-    }
-    else if (neighborCounter.inactive === 5 || neighborCounter.inactive === 6) {
-      // console.log('review cell with 2 or 3 neighbors');
-      newCellState = currentState;
-    }
-    else if (neighborCounter.inactive < 5) {
-      // console.log('review cell with more than 3 neighbors');
-      newCellState = REVIEWSTATE.INACTIVE;
-    }
-    else {
-      console.warn('this should not happen');
-    }
-  }
-  return newCellState;
-}
-
-function trustpilotSingleRules(currentState, neighborCounter) {
-  let newCellState;
-  if (currentState === REVIEWSTATE.INACTIVE) {
-
-    if (neighborCounter.inactive === 5) {
-      // console.log('inactive cell with 3 neighbors');
-
-      let counters = [];
-      Object.keys(neighborCounter).forEach((key, index) => {
-        if (key === 'inactive') {
-          return;
-        } else {
-          counters.push(neighborCounter[key]);
-        }
-      });
-
-      let maxCounter = Math.max.apply(null, counters); //get the highest count
-      let maxReview = counters.indexOf(maxCounter) + 1; //get the state with the highest count, adjusted since we dont push inactive cells
-      if (maxReview === REVIEWSTATE.FIVESTARS) {
-        newCellState = maxReview;
-      } else {
-        newCellState = maxReview + 1; // the new cell is born one level above the highest neighbor
-      }
-
-    } else {
-      // console.log('inactive cell with more or less than 3 neighbors');
-      newCellState = REVIEWSTATE.INACTIVE;
-    }
-
-  } else {
-
-    if (neighborCounter.inactive > 6) {
-      // console.log('review cell with less than 2 neighbors');
-      newCellState = REVIEWSTATE.INACTIVE;
-    }
-    else if (neighborCounter.inactive === 5 || neighborCounter.inactive === 6) {
-      // console.log('review cell with 2 or 3 neighbors');
-      newCellState = currentState;
-    }
-    else if (neighborCounter.inactive < 5) {
-      // console.log('review cell with more than 3 neighbors');
-      newCellState = --currentState;
-    }
-    else {
-      console.warn('this should not happen');
-    }
-  }
-  return newCellState;
-}
+// SVG namespaces
+const  svgns = "http://www.w3.org/2000/svg";
+const  xlinkns = "http://www.w3.org/1999/xlink";
 
 class GameOfTrust {
   constructor(boardWidth, boardHeight) {
     this.boardWidth = boardWidth;
     this.boardHeight = boardHeight;
-    // this.setSize();
+
     // Create the board array
     this.board = GameOfTrust.createBoardArray(boardWidth, boardHeight);
     this.boardDivs = []; // Array with the div elements of the board
@@ -784,144 +631,126 @@ class GameOfTrust {
   //   board.style.height = (this.boardHeight * 20) + 'px';
   //
   // }
-
 }
 
-class UserInterface {
-  constructor() {
-    this.currentPage = PAGES.HOME;
-  }
+function conwaysRules(currentState, neighborCounter) {
+  let newCellState;
+  if (currentState === REVIEWSTATE.INACTIVE) {
 
-  gotoHome() {
-    this.currentPage = PAGES.HOME;
-    UserInterface.gotoPage(PAGES.HOME);
-  }
+    if (neighborCounter.inactive === 5) {
+      // console.log('inactive cell with 3 neighbors');
+      newCellState = REVIEWSTATE.FIVESTARS;
+    } else {
+      // console.log('inactive cell with more or less than 3 neighbors');
+      newCellState = REVIEWSTATE.INACTIVE;
+    }
 
-  gotoSinglePlayer() {
-    game.resetGame();
-    this.enableStart();
-    this.currentPage = PAGES.SINGLEPLAYER;
-    currentPageElm.innerText = 'Single Player';
-    UserInterface.gotoPage(PAGES.SINGLEPLAYER);
-  }
+  } else {
 
-  gotoMultiplayer() {
-    game.resetGame();
-    this.enablePlayer1();
-    this.currentPage = PAGES.MULTIPLAYER;
-    currentPageElm.innerText = 'Multiplayer';
-    UserInterface.gotoPage(PAGES.MULTIPLAYER);
-  }
-
-  gotoSandbox() {
-    game.resetGame();
-    this.enableStart();
-    this.currentPage = PAGES.SANDBOX;
-    currentPageElm.innerText = 'Sandbox';
-    UserInterface.gotoPage(PAGES.SANDBOX);
-  }
-
-  showStartButton() {
-    UserInterface.hide([stopButton, continueButton, startOverButton]);
-    UserInterface.reveal([startButton]);
-    UserInterface.enable([resetButton]);
-  }
-
-  showStopButton() {
-    UserInterface.hide([startButton, continueButton, startOverButton]);
-    UserInterface.reveal([stopButton]);
-    UserInterface.disable([resetButton]);
-  }
-
-  showContinueButtons() {
-    UserInterface.hide([stopButton]);
-    UserInterface.reveal([continueButton, startOverButton]);
-    UserInterface.enable([resetButton]);
-  }
-
-  enablePlayer1() {
-    UserInterface.disable([startButton, readyButtonPlayer2]);
-    UserInterface.enable([readyButtonPlayer1]);
-  }
-
-  enablePlayer2() {
-    UserInterface.disable([startButton, readyButtonPlayer1]);
-    UserInterface.enable([readyButtonPlayer2]);
-  }
-
-  enableStart() {
-    UserInterface.disable([readyButtonPlayer1, readyButtonPlayer2]);
-    UserInterface.enable([startButton]);
-  }
-
-  showResults() {
-    UserInterface.hide([panelSingle, panelMultiplayer]);
-    UserInterface.reveal([panelResults]);
-  }
-
-  showPanel() {
-    UserInterface.hide([panelResults, panelSingle, panelMultiplayer, panelSandbox]);
-    switch (this.currentPage) {
-      case PAGES.SINGLEPLAYER:
-        UserInterface.reveal([panelSingle]);
-        break;
-      case PAGES.MULTIPLAYER:
-        UserInterface.reveal([panelMultiplayer]);
-        break;
-      case PAGES.SANDBOX:
-        UserInterface.reveal([panelSandbox]);
-        break;
+    if (neighborCounter.inactive > 6) {
+      // console.log('review cell with less than 2 neighbors');
+      newCellState = REVIEWSTATE.INACTIVE;
+    }
+    else if (neighborCounter.inactive === 5 || neighborCounter.inactive === 6) {
+      // console.log('review cell with 2 or 3 neighbors');
+      newCellState = REVIEWSTATE.FIVESTARS;
+    }
+    else if (neighborCounter.inactive < 5) {
+      // console.log('review cell with more than 3 neighbors');
+      newCellState = REVIEWSTATE.INACTIVE;
+    }
+    else {
+      console.warn('this should not happen');
     }
   }
-
-  static gotoPage(page) {
-    switch (page) {
-      case PAGES.HOME:
-        this.hide([header, content]);
-        this.reveal([home]);
-        break;
-      case PAGES.SINGLEPLAYER:
-        this.hide([home, panelMultiplayer, panelSandbox]);
-        this.reveal([header, content, panelSingle]);
-        break;
-      case PAGES.MULTIPLAYER:
-        this.hide([home, panelSingle, panelSandbox]);
-        this.reveal([header, content, panelMultiplayer]);
-        break;
-      case PAGES.SANDBOX:
-        this.hide([home, panelMultiplayer, panelSingle]);
-        this.reveal([header, content, panelSandbox]);
-        break;
-    }
-  }
-
-  static reveal(elements) {
-    elements.forEach((el) => {
-      el.style.display = '';
-    })
-  }
-
-  static hide(elements) {
-    elements.forEach((el) => {
-      el.style.display = 'none';
-    })
-  }
-
-  static disable(elements) {
-    elements.forEach((el) => {
-      el.setAttribute('disabled', '');
-    })
-  }
-
-  static enable(elements) {
-    elements.forEach((el) => {
-      el.removeAttribute('disabled');
-    })
-  }
+  return newCellState;
 }
 
-//Initialize the interface control
-const gameUI = new UserInterface();
+function trustpilotMultiRules(currentState, neighborCounter) {
+  let newCellState;
+  if (currentState === REVIEWSTATE.INACTIVE) {
 
-// Initialize and set board dimensions
-const game = new GameOfTrust(30, 30);
+    if (neighborCounter.inactive === 5) {
+      // console.log('inactive cell with 3 neighbors');
+
+      if (neighborCounter.onestar >= 2) {
+        newCellState = REVIEWSTATE.ONESTAR;
+      } else {
+        newCellState = REVIEWSTATE.FIVESTARS;
+      }
+
+    } else {
+      // console.log('inactive cell with more or less than 3 neighbors');
+      newCellState = REVIEWSTATE.INACTIVE;
+    }
+
+  } else {
+
+    if (neighborCounter.inactive > 6) {
+      // console.log('review cell with less than 2 neighbors');
+      newCellState = REVIEWSTATE.INACTIVE;
+    }
+    else if (neighborCounter.inactive === 5 || neighborCounter.inactive === 6) {
+      // console.log('review cell with 2 or 3 neighbors');
+      newCellState = currentState;
+    }
+    else if (neighborCounter.inactive < 5) {
+      // console.log('review cell with more than 3 neighbors');
+      newCellState = REVIEWSTATE.INACTIVE;
+    }
+    else {
+      console.warn('this should not happen');
+    }
+  }
+  return newCellState;
+}
+
+function trustpilotSingleRules(currentState, neighborCounter) {
+  let newCellState;
+  if (currentState === REVIEWSTATE.INACTIVE) {
+
+    if (neighborCounter.inactive === 5) {
+      // console.log('inactive cell with 3 neighbors');
+
+      let counters = [];
+      Object.keys(neighborCounter).forEach((key, index) => {
+        if (key === 'inactive') {
+          return;
+        } else {
+          counters.push(neighborCounter[key]);
+        }
+      });
+
+      let maxCounter = Math.max.apply(null, counters); //get the highest count
+      let maxReview = counters.indexOf(maxCounter) + 1; //get the state with the highest count, adjusted since we dont push inactive cells
+      if (maxReview === REVIEWSTATE.FIVESTARS) {
+        newCellState = maxReview;
+      } else {
+        newCellState = maxReview + 1; // the new cell is born one level above the highest neighbor
+      }
+
+    } else {
+      // console.log('inactive cell with more or less than 3 neighbors');
+      newCellState = REVIEWSTATE.INACTIVE;
+    }
+
+  } else {
+
+    if (neighborCounter.inactive > 6) {
+      // console.log('review cell with less than 2 neighbors');
+      newCellState = REVIEWSTATE.INACTIVE;
+    }
+    else if (neighborCounter.inactive === 5 || neighborCounter.inactive === 6) {
+      // console.log('review cell with 2 or 3 neighbors');
+      newCellState = currentState;
+    }
+    else if (neighborCounter.inactive < 5) {
+      // console.log('review cell with more than 3 neighbors');
+      newCellState = --currentState;
+    }
+    else {
+      console.warn('this should not happen');
+    }
+  }
+  return newCellState;
+}

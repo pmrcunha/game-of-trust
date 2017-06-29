@@ -1,0 +1,21 @@
+{
+  "name": "game-of-trust",
+  "version": "1.0.0",
+  "description": "A Trustpilot flavored version of Conway's Game of Life ",
+  "main": "main.js",
+  "repository": {
+    "url": "git@github.com:pmrcunha/game-of-trust.git",
+    "type": "git"
+  },
+  "author": "Paulo Cunha <paulomrcunha@gmail.com>",
+  "license": "Copyright Paulo Cunha",
+  "scripts": {
+    "build": "sass ./styles/main.sass ./styles/styles.css",
+    "start": "yarn build && yarn open",
+    "open": "concurrently \"http-server -a localhost -p 9000\" \"open http://localhost:9000/\""
+  },
+  "devDependencies": {
+    "concurrently": "^3.5.0",
+    "http-server": "^0.10.0"
+  }
+}

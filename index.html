@@ -28,7 +28,7 @@
     <meta name="msapplication-TileImage" content="./assets/ms-icon-144x144.png">
     <meta name="theme-color" content="#4990E2">
 
-    <link rel="stylesheet" href="./style.css">
+    <link rel="stylesheet" href="./styles/styles.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.5.2/animate.min.css">
   </head>
 
@@ -220,7 +220,7 @@ with Reviews</h3>
       </div>
     </section>
 
-    <header id="header" class="animated fadeInhidden" style="display: none;">
+    <header id="header" class="header animated fadeInhidden" style="display: none;">
       <span class="breadcrumbs">
         <a onclick="gameUI.gotoHome();">Home</a>
          &#62;
@@ -233,7 +233,7 @@ with Reviews</h3>
 
     <section id="content" class="content animated fadeIn" style="display: none;">
       <div class="game">
-        <div id="board" class="game__board board"></div>
+        <div id="board" class="game__board"></div>
         <div class="game__controls">
           <h3 id="turn-counter" class="game__counter">0</h3>
           <div class="game__buttons">
@@ -365,6 +365,13 @@ with Reviews</h3>
     <div class="authorship">
       <small>Designed and built by <a target="_blank" href="https://github.com/pmrcunha">@pmrcunha</a></small>
     </div>
-    <script src="./main.js"></script>
+    <script src="./scripts/game.js"></script>
+    <script src="./scripts/user_interface.js"></script>
+    <script>
+      //Initialize the game and set board dimensions
+      const game = new GameOfTrust(30,30);
+      //Initialize the interface control
+      const gameUI = new UserInterface();
+    </script>
   </body>
 </html>
