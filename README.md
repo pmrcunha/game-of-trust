@@ -1,4 +1,7 @@
 # Conway's Game of Trust
+
+![Code Challenge](https://img.shields.io/badge/kind-code_challenge-blue)
+
 ## A Trustpilot flavored version of Conway's Game of Life
 
 ![screenshot](./assets/screenshot.png "Screenshot")
